@@ -6,7 +6,7 @@ Template.form.events({
 		var intensity = $('#intensity').val();
 
 		Transactions.insert({
-			userID: Meteor.user()._id,
+			userID: Meteor.userId(),
 			emotion: emotion,
 			intensity: intensity,
 			createdAt: new Date()
@@ -18,6 +18,7 @@ Template.visualization.helpers({
 	visualization: function(){	
 		return Transactions.find({userID:Meteor.userId()});
 	}
+<<<<<<< HEAD
 })
 
 Template.visualization.onRendered(function(){
@@ -55,3 +56,16 @@ Template.visualization.onRendered(function(){
 				break;
 		}
 	}*/
+=======
+	
+})
+
+Template.visualization.onRendered(function(){
+	console.log('rendered');
+	var emotion = $('.colorEmotion');
+	for (i=0;i<emotion.length; i++){
+		console.log(emotion[i].innerHTML);
+	
+	}
+})
+>>>>>>> 20eb9e88007bcb34c0ff555390495e12ddb9566c
