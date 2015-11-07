@@ -1,3 +1,4 @@
+
 Template.form.events({
 	"submit form" : function(e) {
 		e.preventDefault();
@@ -16,11 +17,19 @@ Template.form.events({
 Template.visualization.helpers({
 	visualization: function(){	
 		return Transactions.find({userID:Meteor.userId()});
-	},
+	}
+})
 
-	colorEmotion: function() {
-		var emotion = $('.currentEmotion').val();
-		console.log(emotion);
+Template.visualization.onRendered(function(){
+	console.log("Hey");
+	var array = $('.current');
+	console.log(array);
+	for (i=0; i<array.length; i++) {
+		console.log(array);
+	}
+})
+/*	colorEmotion: function() {
+		console.log(this.currentEmotion);
 		console.log(this.find("[currentEmotion]"));
 		switch(emotion) {
 			case 'happy':
@@ -45,6 +54,4 @@ Template.visualization.helpers({
 				return 'white'
 				break;
 		}
-	}
-})
-
+	}*/

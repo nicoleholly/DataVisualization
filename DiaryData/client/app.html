@@ -8,21 +8,21 @@
 	{{>visualization}}
 </body>
 
-<template name ="login">{{>loginButtons}} </template>
+<template name="login">{{>loginButtons}} </template>
 
-<template name = "form">
+<template name="form">
 
 	<form>
 
 		<h1><label for ="emotion">How are you feeling today?</label></h1> <br />
 		{{>emotionPicker}}
 
-	<button id = "submit">submit</button>
+	<button id="submit">submit</button>
 	</form>
 </template>
 
 <template name ="emotionPicker">
-	<select id = "emotion" name = "emotion">
+	<select id="emotion" name="emotion">
 		  <option value="happy">Happy</option>
 		  <option value="sad">Sad</option>
 		  <option value="angry">Angry</option>
@@ -32,12 +32,12 @@
 		  <option value="relaxed">Relaxed</option>
 		</select>
 		
-		<label for = "instensity">Intensity</label>
-		<input id="intensity" name="intesity" type="range" min=0 max=100 value=0>
+		<label for="intensity">Intensity</label>
+		<input id="intensity" name="intensity" type="range" min=0 max=100 value=0>
 
 </template>
 
-<template name ="visualization">
+<template name="visualization">
 		{{#each visualization}}
 			<p id="{{colorEmotion}}" class="currentEmotion">{{emotion}}</p>
 			<p id="currentIntensity" class="currentIntensity">{{intensity}}</p>
