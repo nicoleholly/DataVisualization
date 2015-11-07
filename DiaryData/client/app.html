@@ -4,13 +4,29 @@
 <body>
 	<h1> Hello, world! </h1>
 	{{>login}}
+	{{>form}}
 </body>
 
 <template name ="login">{{>loginButtons}} </template>
 
 <template name = "form">
+
 	<form>
-		<input type ="text"></input>
+		<label for ="emotion">How are you feeling today?</label>
+
+		<select name = "emotion">
+		  <option value="happy">Happy</option>
+		  <option value="sad">Sad</option>
+		  <option value="angry">Angry</option>
+		  <option value="fear">Fear</option>
+		</select>
+
+		<input id="intensity" name="intesity" type="range" min=0 max=100 value=0>
+
+
+
+
+
 	</form>
 
 </template>
