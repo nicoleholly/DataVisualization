@@ -3,6 +3,14 @@
 </head>
 <body>
 	<h1> Hello, world! </h1>
-	<template name =""> </template>
+	{{>login}}
 </body>
 
+<template name ="login">{{>loginButtons}} </template>
+
+<template name = "form">
+	<form>
+		<input type ="text"></input>
+	</form>
+
+</template>
