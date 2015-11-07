@@ -38,10 +38,8 @@
 </template>
 
 <template name ="visualization">
-		{{#each visualization}}	
-		<div class = "list">	
-			<p class = "emotion">{{emotion}}</p>
-			<p class = "intensity">{{intensity}}</p>
-		</div>
+		{{#each visualization}}
+			<p id="{{colorEmotion}}" class="currentEmotion">{{emotion}}</p>
+			<p id="currentIntensity" class="currentIntensity">{{intensity}}</p>
 		{{/each}}
 </template>
