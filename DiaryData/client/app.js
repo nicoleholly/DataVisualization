@@ -5,7 +5,7 @@ Template.form.events({
 		var intensity = $('#intensity').val();
 
 		Transactions.insert({
-			userID: Meteor.user()._id,
+			userID: Meteor.userId(),
 			emotion: emotion,
 			intensity: intensity,
 			createdAt: new Date()
