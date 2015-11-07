@@ -2,6 +2,7 @@
 	<title> Emotion Visualization </title>
 </head>
 <body>
+	<h1> Emotion Visualization </h1>
 	{{>login}}
 	{{>form}}
 </body>
@@ -27,4 +28,10 @@
 		<input id="intensity" name="intesity" type="range" min=0 max=100 value=0>
 	<button id = "submit">submit</button>
 	</form>
+</template>
+
+<template name ="visualization">
+	{{#if currentUser}}
+		<div>{{visualization}}</div>
+	{{/if}}
 </template>
