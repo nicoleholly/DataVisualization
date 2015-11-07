@@ -1,13 +1,8 @@
 Template.form.events({
-	"submit form" : function(e,tmpl) {
+	"submit form" : function(e) {
 		e.preventDefault();
-		console.log("submit event");
 		var emotion = $('#emotion').val();
-		 console.log(emotion);
-		 var intensity = $('#intensity').val();
-
-		 console.log(intensity);
-		 console.log(Meteor.user().emails.address);
+		var intensity = $('#intensity').val();
 
 		Transactions.insert({
 			user: Meteor.user().emails[0].address,
@@ -17,4 +12,8 @@ Template.form.events({
 		})
 	}
 })
-
+Template.visualization.helpers({
+	"visualization":function(){
+		return Transactions.find({user: Meteor.user().emails[0].address});
+	}
+})
