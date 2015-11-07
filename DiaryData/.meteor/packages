@@ -20,3 +20,4 @@ insecure                # Allow all DB writes from clients (for prototyping)
 msavin:mongol
 accounts-ui
 accounts-password
+d3js:d3
