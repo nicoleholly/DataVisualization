@@ -1,11 +1,20 @@
-/*Template.form.events({
-	".form submit" : function(user, emotion, intensity, date) {
+Template.form.events({
+	"submit form" : function(e,tmpl) {
+		e.preventDefault();
+		console.log("submit event");
+		var emotion = $('#emotion').val();
+		 console.log(emotion);
+		 var intensity = $('#intensity').val();
+
+		 console.log(intensity);
+		 console.log(Meteor.user().emails.address);
+
 		Transactions.insert({
-			user: user,
+			user: Meteor.user().emails[0].address,
 			emotion: emotion,
 			intensity: intensity,
-			date: date
+			createdAt: new Date()
 		})
 	}
 })
-*/
+

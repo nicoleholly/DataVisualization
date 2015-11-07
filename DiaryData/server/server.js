@@ -1,3 +1,3 @@
-Meteor.publish('transaction', function() {
-	return Transaction.find({})
+Meteor.publish('transactions', function() {
+	return Transactions.find({});
 })
