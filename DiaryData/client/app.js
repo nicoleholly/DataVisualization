@@ -5,7 +5,7 @@ Template.form.events({
 		var intensity = $('#intensity').val();
 
 		Transactions.insert({
-			user: Meteor.user().emails[0].address,
+			userID: Meteor.user()._id,
 			emotion: emotion,
 			intensity: intensity,
 			createdAt: new Date()
@@ -14,7 +14,8 @@ Template.form.events({
 })
 
 Template.visualization.helpers({
-	visualization: function(){
-		return Transactions.find({user:Meteor.user().emails[0].address});
+	visualization: function(){	
+		
+		return Transactions.find({userID:Meteor.userId()});
 	}
 })
