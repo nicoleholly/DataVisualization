@@ -14,8 +14,8 @@ Template.form.events({
 	}
 })
 
-Template.visualization.helpers({
-	visualization: function(){	
-		return Transactions.find({userID:Meteor.userId()});
-	}
-})
+Template.visualization.rendered = function() {
+	console.log("render");
+	var dataset = Transactions.find().fetch();
+	console.log(dataset);
+};
