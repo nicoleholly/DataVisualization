@@ -5,6 +5,7 @@
 	<h1> Emotion Visualization </h1>
 	{{>login}}
 	{{>form}}
+	{{>visualization}}
 </body>
 
 <template name ="login">{{>loginButtons}} </template>
@@ -14,24 +15,32 @@
 	<form>
 
 		<h1><label for ="emotion">How are you feeling today?</label></h1> <br />
-		<select id = "emotion" name = "emotion">
+		{{>emotionPicker}}
+
+	<button id = "submit">submit</button>
+	</form>
+</template>
+
+<template name ="emotionPicker">
+	<select id = "emotion" name = "emotion">
 		  <option value="happy">Happy</option>
 		  <option value="sad">Sad</option>
 		  <option value="angry">Angry</option>
 		  <option value="fear">Fear</option>
 		  <option value="guilt">Guilt</option>
 		  <option value="excited">Excited</option>
-		  <option value="relaxedd">Relaxed</option>
+		  <option value="relaxed">Relaxed</option>
 		</select>
-
+		
 		<label for = "instensity">Intensity</label>
 		<input id="intensity" name="intesity" type="range" min=0 max=100 value=0>
-	<button id = "submit">submit</button>
-	</form>
+
 </template>
 
 <template name ="visualization">
-	{{#if currentUser}}
-		<div>{{visualization}}</div>
-	{{/if}}
+		{{#each visualization}}
+		
+			<p>{{emotion}}</p>
+			<p>{{intensity}}</p>
+		{{/each}}
 </template>

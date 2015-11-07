@@ -12,8 +12,9 @@ Template.form.events({
 		})
 	}
 })
+
 Template.visualization.helpers({
-	"visualization":function(){
-		return Transactions.find({user: Meteor.user().emails[0].address});
+	visualization: function(){
+		return Transactions.find({user:Meteor.user().emails[0].address});
 	}
 })
