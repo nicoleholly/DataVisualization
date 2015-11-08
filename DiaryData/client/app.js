@@ -1,16 +1,4 @@
-Template.form.events({
-	"submit form" : function(e) {
-		e.preventDefault();
-		var emotion = $('#emotion').val();
-		var intensity = $('#intensity').val();
-
-		Transactions.insert({
-			userID: Meteor.userId(),
-			emotion: emotion,
-			intensity: intensity,
-			createdAt: new Date()
-		})
-
+function getData(){
 		var dataset = Transactions.find().fetch(); //FIND TRANSACTIONS BY USER
 
 	d3.select("#viz").selectAll("div")
@@ -50,7 +38,28 @@ Template.form.events({
 		    			break;
 		    	}
 		    })
+	
+}
+
+
+Template.form.events({
+	"submit form" : function(e) {
+		e.preventDefault();
+		var emotion = $('#emotion').val();
+		var intensity = $('#intensity').val();
+
+		Transactions.insert({
+			userID: Meteor.userId(),
+			emotion: emotion,
+			intensity: intensity,
+			createdAt: new Date()
+		})
+		getData();
+		
 	}
+})
+Template.visualization.onRendered(function(){
+	getData();
 })
 
 
