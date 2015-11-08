@@ -13,18 +13,10 @@ Template.form.events({
 	}
 })
 
-Template.visualization.helpers({
-	visualization: function(){	
-		return Transactions.find({userID:Meteor.userId()});
-	}
-	
-})
 
-Template.visualization.onRendered(function(){
-	console.log('rendered');
-	var emotion = $('.colorEmotion');
-	for (i=0;i<emotion.length; i++){
-		console.log(emotion[i].innerHTML);
-	
-	}
-})
+
+Template.visualization.onRendered( function(){
+	console.log("render");
+    var dataset = Transactions.find().fetch();
+    console.log(dataset);
+});
