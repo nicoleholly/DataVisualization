@@ -1,3 +1,4 @@
+
 Template.form.events({
 	"submit form" : function(e) {
 		e.preventDefault();
@@ -12,8 +13,6 @@ Template.form.events({
 		})
 	}
 })
-
-
 
 Template.visualization.onRendered( function(){
 	console.log("render");
