@@ -10,11 +10,7 @@ Template.form.events({
 			intensity: intensity,
 			createdAt: new Date()
 		})
-	}
-})
-
-Template.visualization.onRendered( function(){ //MAKE THIS TEMPLATE REACTIVE
-    var dataset = Transactions.find().fetch(); //FIND TRANSACTIONS BY USER
+		var dataset = Transactions.find().fetch(); //FIND TRANSACTIONS BY USER
 
 	d3.select("#viz").selectAll("div")
 	    .data(dataset)
@@ -50,7 +46,10 @@ Template.visualization.onRendered( function(){ //MAKE THIS TEMPLATE REACTIVE
 		    			break;
 		    	}
 		    })
-});
+	}
+})
+
+
 
 Template.canvas.onRendered(function(){
 	var scene = new THREE.Scene();
@@ -68,6 +67,8 @@ Template.canvas.onRendered(function(){
 	camera.position.z = 5;
 	function render() {
 		requestAnimationFrame( render );
+		cube.rotation.x += 0.1;
+		cube.rotation.y += 0.1; 
 		renderer.render( scene, camera );
 	}
 	render();
