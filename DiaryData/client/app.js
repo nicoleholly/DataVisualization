@@ -15,7 +15,11 @@ Template.form.events({
 })
 
 Template.visualization.onRendered( function(){
-	console.log("render");
     var dataset = Transactions.find().fetch();
-    console.log(dataset);
+    for (i=0; i<dataset.length; i++) {
+    	var data = dataset[i]
+    	console.log(data.intensity);
+    }
 });
+
+
