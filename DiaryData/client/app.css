@@ -1,5 +1,22 @@
+*{
+	padding:0;
+	margin:0;
+}
+
 .bar {
 	width: 10px;
 	margin: 10px;
 	display: inline-block;
+}
+.main{
+	width:80%;
+	margin:0 auto;
+	text-align: center;
+}
+h1{
+	text-align:center;
+}
+.login,.form,.visual{
+	margin:0 auto;
+	width:100%;
 }
