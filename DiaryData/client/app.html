@@ -9,6 +9,7 @@
 		{{>login}}
 		{{>form}}
 		{{>visualization}}
+		{{>canvas}}
 	</template>
 
 <template name="login">{{>loginButtons}} </template>
@@ -22,6 +23,7 @@
 
 	<button id="submit">submit</button>
 	</form>
+
 </template>
 
 <template name ="emotionPicker">
@@ -43,4 +45,13 @@
 		<div id ="viz">
 			<div></div>
 		</div>
+</template>
+
+<template name="canvas">
+	<div id="canvas">
+		<style>
+			body { margin: 0;}
+			canvas { width: 100%; height: 100%;}
+		</style>
+	</div>
 </template>
