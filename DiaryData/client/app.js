@@ -52,4 +52,8 @@ Template.visualization.onRendered( function(){
 		    })
 });
 
+Template.canvas.onRendered( function(){
+
+
+})
 
