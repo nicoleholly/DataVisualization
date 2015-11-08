@@ -10,11 +10,8 @@ Template.form.events({
 			intensity: intensity,
 			createdAt: new Date()
 		})
-	}
-})
 
-Template.visualization.onRendered( function(){ //MAKE THIS TEMPLATE REACTIVE
-    var dataset = Transactions.find().fetch(); //FIND TRANSACTIONS BY USER
+		var dataset = Transactions.find().fetch(); //FIND TRANSACTIONS BY USER
 
 	d3.select("#viz").selectAll("div")
 	    .data(dataset)
@@ -48,10 +45,19 @@ Template.visualization.onRendered( function(){ //MAKE THIS TEMPLATE REACTIVE
 		    		case 'relaxed':
 		    			return 'purple'
 		    			break;
+		    		case 'fear':
+		    			return 'black'
+		    			break;
 		    	}
 		    })
-});
+	}
 
+})
+
+Template.visualization.onRendered( function(){ //MAKE THIS TEMPLATE REACTIVE
+    
+});
+/*
 Template.canvas.onRendered(function(){
 	var scene = new THREE.Scene();
 	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -72,3 +78,4 @@ Template.canvas.onRendered(function(){
 	}
 	render();
 })
+*/
