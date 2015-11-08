@@ -28,7 +28,7 @@ Template.form.events({
 		    	var barColor = bar.emotion;
 		    	switch(barColor) {
 		    		case 'happy':
-		    			return 'yellow'
+		    			return 'brown'
 		    			break;
 		    		case 'sad': 
 		    			return 'blue'
