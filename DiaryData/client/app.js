@@ -16,24 +16,39 @@ Template.form.events({
 
 Template.visualization.onRendered( function(){
     var dataset = Transactions.find().fetch();
-    console.log(dataset);
 
-    for (i=0; i<dataset.length; i++) {
-    	var data = dataset[i]
-    	console.log(data.intensity);
-    	var bar = data.intensity;
-		d3.select("#viz").selectAll("div")
-
-		    .data(dataset)
+	d3.select("#viz").selectAll("div")
+	    .data(dataset)
 		    .enter()
 		    .append("div")
 		    .attr("class", "bar")
 		    .style("height", function(bar) {
-		        var barHeight = bar;
+		        var barHeight = bar.intensity;
 		        return barHeight + "px";
-	    });
-	}
-
+	    })
+		    .style("background-color", function(bar) {
+		    	var barColor = bar.emotion;
+		    	switch(barColor) {
+		    		case 'happy':
+		    			return 'yellow'
+		    			break;
+		    		case 'sad': 
+		    			return 'blue'
+		    			break;
+		    		case 'angry':
+		    			return 'red'
+		    			break;
+		    		case 'excited':
+		    			return 'orange'
+		    			break;
+		    		case 'guilt':
+		    			return 'grey'
+		    			break;
+		    		case 'relaxed':
+		    			return 'purple'
+		    			break;
+		    	}
+		    })
 });
 
 
