@@ -10,6 +10,7 @@ Template.form.events({
 			intensity: intensity,
 			createdAt: new Date()
 		})
+
 		var dataset = Transactions.find().fetch(); //FIND TRANSACTIONS BY USER
 
 	d3.select("#viz").selectAll("div")
@@ -44,13 +45,16 @@ Template.form.events({
 		    		case 'relaxed':
 		    			return 'purple'
 		    			break;
+		    		case 'fear':
+		    			return 'black'
+		    			break;
 		    	}
 		    })
 	}
 })
 
 
-
+/*
 Template.canvas.onRendered(function(){
 	var scene = new THREE.Scene();
 	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -73,3 +77,4 @@ Template.canvas.onRendered(function(){
 	}
 	render();
 })
+*/
