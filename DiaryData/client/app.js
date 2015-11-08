@@ -15,19 +15,25 @@ Template.form.events({
 })
 
 Template.visualization.onRendered( function(){
-	console.log("render");
     var dataset = Transactions.find().fetch();
     console.log(dataset);
 
+    for (i=0; i<dataset.length; i++) {
+    	var data = dataset[i]
+    	console.log(data.intensity);
+    	var bar = data.intensity;
+		d3.select("#viz").selectAll("div")
 
-d3.select("div").selectAll("div")
-    .data(dataset)
-    .enter()
-    .append("div")
-    .attr("class", "bar")
-    .style("height", function(d) {
-        var barHeight = d;
-        return barHeight + "px";
-    });
+		    .data(dataset)
+		    .enter()
+		    .append("div")
+		    .attr("class", "bar")
+		    .style("height", function(bar) {
+		        var barHeight = bar;
+		        return barHeight + "px";
+	    });
+	}
 
 });
+
+
