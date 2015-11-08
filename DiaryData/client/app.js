@@ -16,11 +16,11 @@ Template.form.events({
 
 Template.visualization.onRendered( function(){
     var dataset = Transactions.find().fetch();
-    console.log(dataset);
 
 
-    	d3.select("#viz").selectAll("div")
-			.data(dataset)
+
+	d3.select("#viz").selectAll("div")
+	    .data(dataset)
 		    .enter()
 		    .append("div")
 		    .attr("class", "bar")
@@ -29,21 +29,30 @@ Template.visualization.onRendered( function(){
 		        var barHeight = bar.intensity;
 		        return barHeight + "px";
 	    })
-		     .style("background-color", function(bar) {
-		    	console.log(bar.emotion);
-		        var barColor = bar.emotion;
-		        switch(barColor){
-		        	case "happy":
-		        		return "yellow";
-		        		break;
-		        	case "sad":
-		        		return "blue";
-		        		break;	
-		        }
-	    });
 
-
-
+		    .style("background-color", function(bar) {
+		    	var barColor = bar.emotion;
+		    	switch(barColor) {
+		    		case 'happy':
+		    			return 'yellow'
+		    			break;
+		    		case 'sad': 
+		    			return 'blue'
+		    			break;
+		    		case 'angry':
+		    			return 'red'
+		    			break;
+		    		case 'excited':
+		    			return 'orange'
+		    			break;
+		    		case 'guilt':
+		    			return 'grey'
+		    			break;
+		    		case 'relaxed':
+		    			return 'purple'
+		    			break;
+		    	}
+		    })
 });
 
 
