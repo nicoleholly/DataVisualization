@@ -1,16 +1,18 @@
 <head>
 	<title> Emotion Visualization </title>
+
 </head>
-<body>
-	<h1> Emotion Visualization </h1>
-	
-</body>
-	<template name = "home">
-		{{>login}}
-		{{>form}}
-		{{>visualization}}
-		{{>canvas}}
-	</template>
+
+<template name = "home">
+	<main class = 'main'>
+		<h1> Emotion Visualization </h1>
+		<section class = "login">{{>login}}</section>
+		<section class = "form">{{>form}}</section>
+		<section class = "visual">{{>visualization}}</section>
+		
+	</main>
+	<section class = "3d">{{>canvas}}</section>
+</template>
 
 <template name="login">{{>loginButtons}} </template>
 
@@ -21,7 +23,7 @@
 		<h1><label for ="emotion">How are you feeling today?</label></h1> <br />
 		{{>emotionPicker}}
 
-	<button id="submit">submit</button>
+		<button id="submit">submit</button>
 	</form>
 
 </template>
@@ -49,10 +51,6 @@
 
 <template name="canvas">
 	<div id="canvas">
-		<canvas></canvas>
-		<style>
-			body { margin: 0;}
-			canvas { width: 100%; height: 100%;}
-		</style>
+	
 	</div>
 </template>
