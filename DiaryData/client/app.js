@@ -107,14 +107,14 @@ Template.canvas.onRendered(function(){
 
 			mesh.matrixAutoUpdate = false;
 			mesh.updateMatrix();
-
 			group.add( mesh );
 		}
 
 	scene.add( group );
 
 	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
-	var cube = new THREE.Mesh( geometry, cubeMaterial );
+	var cubeGeometry = new THREE.BoxGeometry( 1, 1, 1);
+	var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 	scene.add( cube );
 
 	scene.add( new THREE.AmbientLight( 0x404040 ) );
