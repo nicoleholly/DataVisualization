@@ -7,7 +7,7 @@ function getData(){ //to turn this into a method, have to run d3 on server side.
 		    .append("div")
 		    .attr("class", "bar")
 		    .style("height", function(bar) {
-		    	console.log(bar);
+		  
 		        var barHeight = bar.intensity;
 		        return barHeight + "px";
 	    })
@@ -80,6 +80,9 @@ Template.canvas.onRendered(function(){
 	var windowHalfX = window.innerWidth / 2;
 	var windowHalfY = window.innerHeight / 2;
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+	 
+
 
 	var scene = new THREE.Scene();
 	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
