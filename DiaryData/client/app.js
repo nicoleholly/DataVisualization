@@ -20,7 +20,7 @@ function getData(){ //to turn this into a method, have to run d3 on server side.
 function switchEmotionColor(switchEmotion) {
 	    switch(switchEmotion) {
 			case 'happy':
-				return 'brown'
+				return 'yellow'
 				break;
 			case 'sad': 
 				return 'blue'
@@ -44,9 +44,41 @@ function switchEmotionColor(switchEmotion) {
 				return 'green'
 				break;
 			case 'apathetic':
-				return 'beige'
+				return 'dark-blue'
 				break;
 		}
+}
+
+function switchColorHSL(switchEmotion) {
+	switch(switchEmotion){
+			case 'happy':
+				return '.59'
+				break;
+			case 'sad': 
+				return '1.64'
+				break;
+			case 'angry':
+				return '0'
+				break;
+			case 'excited':
+				return '.3'
+				break;
+			case 'guilt':
+				return 'grey'
+				break;
+			case 'relaxed':
+				return '3.08'
+				break;
+			case 'fear':
+				return '3.60'
+				break;
+			case 'tired':
+				return '92'
+				break;
+			case 'apathetic':
+				return '2.51'
+				break;
+	}
 }
 
 Template.form.events({
@@ -86,6 +118,8 @@ Template.canvas.onRendered(function(){
 
 	var scene = new THREE.Scene();
 	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	camera.position.z = 700;
+
 
 	var renderer = new THREE.WebGLRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight);
@@ -98,15 +132,34 @@ Template.canvas.onRendered(function(){
 	var group = new THREE.Group();
 	for ( var i = 0; i < dataset.length; i++) {
 		var size = (dataset[i].intensity/95)
-		var geometry = new THREE.BoxGeometry( size, size, size);
-		var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: true, transparent: true, opacity: 0.5} );
-		var mesh = new THREE.Mesh( geometry, material );
+	//	var geometry = new THREE.DodecahedronGeometry( size, 0);
+ 		// material
+  		material = new THREE.ParticleBasicMaterial({
+    		size: 2,
+    		vertexColors: THREE.VertexColors
+  		})
+
+  		// geometry
+  		var geometry = new THREE.TorusKnotGeometry(10, 200, 500, 100);
+
+  		// vertex colors
+  		var colors = [];
+  		for (var i = 0; i < geometry.vertices.length; i++) {
+    		// blue color
+    		colors[i] = new THREE.Color();
+    		colors[i].setHSL(0.5, Math.random(), Math.random()); //to change to white:set third value to 1,random color:set first value to random
+  		}
+
+  		geometry.colors = colors;
+
+	//	var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: false, transparent: true, opacity: 0.6} );
+		var mesh = new THREE.PointCloud( geometry, material );
 			mesh.position.x = Math.random() * 10 - 5;
 			mesh.position.y = Math.random() * 10 - 5;
 			mesh.position.z = Math.random() * 10 - 5;
 
-			mesh.rotation.x = Math.random() * 2 * Math.PI;
-			mesh.rotation.y = Math.random() * 2 * Math.PI;
+	//		mesh.rotation.x = Math.random() * 2 * Math.PI;
+	//		mesh.rotation.y = Math.random() * 2 * Math.PI;
 
 			mesh.matrixAutoUpdate = false;
 			mesh.updateMatrix();
@@ -115,8 +168,8 @@ Template.canvas.onRendered(function(){
 
 	scene.add( group );
 
-	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
-	var cubeGeometry = new THREE.BoxGeometry( 1, 1, 1);
+	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.4} );
+	var cubeGeometry = new THREE.DodecahedronGeometry( 1, 1);
 	var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 	scene.add( cube );
 
@@ -130,12 +183,12 @@ Template.canvas.onRendered(function(){
 		cube.rotation.y += 0.02; 
 		//cube.rotation.z += 0.02;
 
-		group.rotation.x += 0.02;
-		group.rotation.y += 0.02;
-		group.rotation.z += 0.02;
+	//	group.rotation.x += 0.02;
+	//	group.rotation.y += 0.02;
+	//	group.rotation.z += 0.02;
 
-		camera.position.x += ( mouseX - camera.position.x ) * .05;
-		camera.position.y += ( - mouseY - camera.position.y ) * .05;
+		camera.position.x += ( mouseX - camera.position.x ) * .005;
+		camera.position.y += ( - mouseY - camera.position.y ) * .005;
 
 		camera.lookAt( scene.position );
 		
