@@ -6,6 +6,7 @@
 <template name = "home">
 	<main class = 'main'>
 		<h1> Emotion Visualization </h1>
+		<p>Sign in to add emotions and see your visualization!</p>
 		<section class = "login">{{>login}}</section>
 		<section class = "form">{{>form}}</section>
 		<section class = "visual">{{>visualization}}</section>
@@ -45,13 +46,23 @@
 		<input id="intensity" name="intensity" type="range" min=1 max=100 value=0>
 </template>
 
+
+
 <template name ="visualization">
+	{{#if currentUser}}
 		<div id ="viz">
-			<div></div>
+			{{#each data}}
+			<div>{{emotion}}</div>
+			{{/each}}
 		</div>
+	{{/if}}
 </template>
 
 <template name="canvas">
+		{{#if currentUser}}
+
 	<div id="canvas">
 	</div>
+	{{/if}}
+
 </template>
