@@ -7,7 +7,7 @@ function three(dataset){
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
 	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera( 135, window.innerWidth / window.innerHeight, 1, 10000 );
+	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.position.z = 800;
 
 	var renderer = new THREE.WebGLRenderer();
@@ -21,13 +21,13 @@ function three(dataset){
 
 	var group = new THREE.Group();
 	for ( var i = 0; i < dataset.length; i++) {
-		var size = (dataset[i].intensity/12)
+		var size = (dataset[i].intensity/95)
 		var geometry = new THREE.DodecahedronGeometry( size, 0);
 		var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion)['name'], wireframe: false, transparent: true, opacity: 0.5} );
 		var mesh = new THREE.Mesh( geometry, material );
-			mesh.position.x = Math.random() * 18 + 5;
-			mesh.position.y = Math.random() * 18 + 5;
-			mesh.position.z = Math.random() * 18 + 5;
+			mesh.position.x = Math.random() * 10 - 5;
+			mesh.position.y = Math.random() * 10 - 5;
+			mesh.position.z = Math.random() * 10 - 5;
 
 			mesh.rotation.x = Math.random() * 2 * Math.PI;
 			mesh.rotation.y = Math.random() * 2 * Math.PI;
@@ -39,13 +39,13 @@ function three(dataset){
 		}
 
 	scene.add( group );
-/*		
+		
 	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
 	var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
 	var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 	scene.add( cube );
-*/
 
+/*
 	var centerGeometry = new THREE.TorusKnotGeometry(1, 20, 50, 10);
 
 	// vertex colors
@@ -68,8 +68,12 @@ function three(dataset){
 
 	var center = new THREE.PointCloud( centerGeometry, centerMaterial );
 
-	scene.add(center);
+	center.rotation.x = Math.random() * 2 * Math.PI;
+	center.rotation.y = Math.random() * 2 * Math.PI;
 
+
+	scene.add(center);
+*/
 		//mesh.size(size);
 /*			mesh.position.x = Math.random() * 25 - 15;
 			mesh.position.y = Math.random() * 25 - 15;
@@ -92,19 +96,19 @@ function three(dataset){
 	camera.position.z = 5;
 
 	function onDocumentMouseMove( event ) {
-		mouseX = ( event.clientX - windowHalfX ) * .04;
-		mouseY = ( event.clientY - windowHalfY ) * .04;
+		mouseX = ( event.clientX - windowHalfX ) * .1;
+		mouseY = ( event.clientY - windowHalfY ) * .1;
 	}
 
 	function render() {
 		requestAnimationFrame( render );
-		center.rotation.x += 0.02;
-		center.rotation.y += 0.02; 
+		cube.rotation.x += 0.02;
+		cube.rotation.y += 0.02; 
 
 		//cube.rotation.z += 0.02;
 
-		camera.position.x += ( mouseX - camera.position.x ) * .05 + 1.75;
-		camera.position.y += ( - mouseY - camera.position.y ) * .05 + 1.75;
+		camera.position.x += ( mouseX - camera.position.x ) * .05;
+		camera.position.y += ( - mouseY - camera.position.y ) * .05;
 		camera.position.z = 5;
 
 		camera.lookAt( scene.position );
