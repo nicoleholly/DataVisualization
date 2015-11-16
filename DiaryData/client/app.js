@@ -6,10 +6,9 @@ function three(dataset){
 	var windowHalfY = window.innerHeight / 2;
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
-
 	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-	camera.position.z = -1000;
+	var camera = new THREE.PerspectiveCamera( 135, window.innerWidth / window.innerHeight, 1, 10000 );
+	camera.position.z = 800;
 
 	var renderer = new THREE.WebGLRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight);
@@ -18,37 +17,62 @@ function three(dataset){
 	var template = document.getElementById("canvas");
 	template.appendChild( renderer.domElement ); 
 	console.log(renderer.domElement); 
+	console.log(dataset.length);
 
 	var group = new THREE.Group();
-	console.log(dataset.length);
 	for ( var i = 0; i < dataset.length; i++) {
-		var size = (dataset[i].intensity/95)
-		var geometry = new THREE.TorusKnotGeometry(50, 100, 2500, 500);
-		  // vertex colors
-  		var colors = [];
-  		for (var i = 0; i < geometry.vertices.length; i++) {
+		var size = (dataset[i].intensity/12)
+		var geometry = new THREE.DodecahedronGeometry( size, 0);
+		var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion)['name'], wireframe: false, transparent: true, opacity: 0.5} );
+		var mesh = new THREE.Mesh( geometry, material );
+			mesh.position.x = Math.random() * 18 + 5;
+			mesh.position.y = Math.random() * 18 + 5;
+			mesh.position.z = Math.random() * 18 + 5;
 
+			mesh.rotation.x = Math.random() * 2 * Math.PI;
+			mesh.rotation.y = Math.random() * 2 * Math.PI;
+
+			mesh.matrixAutoUpdate = false;
+			mesh.updateMatrix();
+
+			group.add( mesh );
+		}
+
+	scene.add( group );
+/*		
+	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
+	var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
+	var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+	scene.add( cube );
+*/
+
+	var centerGeometry = new THREE.TorusKnotGeometry(1, 20, 50, 10);
+
+	// vertex colors
+  	var colors = [];
+  	for (var j = 0; j < centerGeometry.vertices.length; j++) {
     	// blue color
-    	colors[i] = new THREE.Color();
-    	colors[i].setHSL(0.5, Math.random(), Math.random()); //to change to white:set third value to 1,random color:set first value to random
-  		}
-
-  		geometry.colors = colors;
-		
+    	colors[j] = new THREE.Color();
+    //	var currentHSL = (switchEmotionColor(dataset[i].emotion)['hsl']);
+    	colors[j].setHSL(0.5, Math.random(), Math.random()); //to change to white:set third value to 1,random color:set first value to random
+  		
+  		centerGeometry.colors = colors;
+	}	
 		//var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion),  transparent: true, opacity: 0.5} );
 		
-		  // material
-  		material = new THREE.PointCloudMaterial({
-    		size: 2,
-    		vertexColors: THREE.VertexColors
-  		});
+	// material
+  	var centerMaterial = new THREE.PointCloudMaterial({
+    	size: .1,
+    	vertexColors: THREE.VertexColors
+  	});
 
+	var center = new THREE.PointCloud( centerGeometry, centerMaterial );
 
-		var mesh = new THREE.ParticleSystem( geometry, material );
+	scene.add(center);
 
 		//mesh.size(size);
-		//	mesh.position.x = Math.random() * 10 - 5;
-		//	mesh.position.y = Math.random() * 10 - 5;
+/*			mesh.position.x = Math.random() * 25 - 15;
+			mesh.position.y = Math.random() * 25 - 15;
 		//	mesh.position.z = Math.random() * 10 - 5;
 
 		//	mesh.rotation.x = Math.random() * 2 * Math.PI;
@@ -59,31 +83,29 @@ function three(dataset){
 			group.add( mesh );
 		}
 
-	scene.add( group );
+		console.log(group.children.length)
+*/
 
-	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
-	var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
-	var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
-	scene.add( cube );
 
 	scene.add( new THREE.AmbientLight( 0x404040 ) );
 
 	camera.position.z = 5;
 
 	function onDocumentMouseMove( event ) {
-		mouseX = ( event.clientX - windowHalfX ) * .1;
-		mouseY = ( event.clientY - windowHalfY ) * .1;
+		mouseX = ( event.clientX - windowHalfX ) * .04;
+		mouseY = ( event.clientY - windowHalfY ) * .04;
 	}
 
 	function render() {
 		requestAnimationFrame( render );
-		cube.rotation.x += 0.02;
-		cube.rotation.y += 0.02; 
+		center.rotation.x += 0.02;
+		center.rotation.y += 0.02; 
+
 		//cube.rotation.z += 0.02;
 
-
-		camera.position.x += ( mouseX - camera.position.x ) * .01;
-		camera.position.y += ( - mouseY - camera.position.y ) * .01;
+		camera.position.x += ( mouseX - camera.position.x ) * .05 + 1.75;
+		camera.position.y += ( - mouseY - camera.position.y ) * .05 + 1.75;
+		camera.position.z = 5;
 
 		camera.lookAt( scene.position );
 		
@@ -108,7 +130,7 @@ function getData(dataset){
 	    })
 		    .style("background-color", function(bar) {
 		    	var barColor = bar.emotion;
-		    	return barColor = switchEmotionColor(barColor);
+		    	return barColor = switchEmotionColor(barColor)['name'];
 		    })
 	
 };
@@ -116,65 +138,60 @@ function getData(dataset){
 function switchEmotionColor(switchEmotion) {
 	    switch(switchEmotion) {
 			case 'happy':
-				return 'yellow'
+				return ({
+					'name': 'yellow', 
+					'hsl': [0.5, Math.random(), Math.random()]
+				})
 				break;
 			case 'sad': 
-				return 'blue'
+				return ({
+					'name': 'blue',
+					'hsl': [1.64, Math.random(), Math.random()]
+				})
 				break;
 			case 'angry':
-				return 'red'
+				return ({
+					'name': 'red', 
+					'hsl': [0, Math.random(), Math.random()]
+				})
 				break;
 			case 'excited':
-				return 'orange'
+				return ({
+					'name': 'orange', 
+					'hsl': [.3, Math.random(), Math.random()]
+				})
 				break;
 			case 'guilt':
-				return 'grey'
+				return ({
+					'name':'grey', 
+					'hsl': [Math.random(), 0, .48]
+				})
 				break;
 			case 'relaxed':
-				return 'purple'
+				return ({
+					'name': 'purple', 
+					'hsl': [3.08, Math.random(), Math.random()]
+				})
 				break;
 			case 'fear':
-				return 'black'
+				return ({
+					'name': 'black', 
+					'hsl': [3.6, Math.random(), Math.random()]
+				})
 				break;
 			case 'tired':
-				return 'green'
+				return ({
+					'name': 'green', 
+					'hsl': [.92, Math.random(), Math.random()]
+				})
 				break;
 			case 'apathetic':
-				return 'dark-blue'
+				return ({
+					'name':'dark-blue', 
+					'hsl': [0, 0, 0]
+				})
 				break;
 		}
-}
-
-function switchColorHSL(switchEmotion) {
-	switch(switchEmotion){
-			case 'happy':
-				return '.59'
-				break;
-			case 'sad': 
-				return '1.64'
-				break;
-			case 'angry':
-				return '0'
-				break;
-			case 'excited':
-				return '.3'
-				break;
-			case 'guilt':
-				return 'grey'
-				break;
-			case 'relaxed':
-				return '3.08'
-				break;
-			case 'fear':
-				return '3.60'
-				break;
-			case 'tired':
-				return '92'
-				break;
-			case 'apathetic':
-				return '2.51'
-				break;
-	}
 }
 
 Template.form.events({
