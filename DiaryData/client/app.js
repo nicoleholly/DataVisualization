@@ -51,7 +51,7 @@ function switchEmotionColor(switchEmotion) {
 		return '#ef94b1'
 		break;
 		case 'excited':
-		return '#f7ba9f'
+		return '#43fc7c'
 		break;
 		case 'guilt':
 		return '#e9f5a3'
@@ -66,7 +66,7 @@ function switchEmotionColor(switchEmotion) {
 		return '#78fcc1'
 		break;
 		case 'apathetic':
-		return '#c9f5ce'
+		return '#eefcf1'
 		break;
 	}
 }
