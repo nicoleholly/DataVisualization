@@ -76,11 +76,13 @@ Template.form.events({
 		e.preventDefault();
 		var emotion = $('#emotion').val();
 		var intensity = $('#intensity').val();
+		var notes = $('.notes').val();
 
 		Transactions.insert({
 			userID: Meteor.userId(),
 			emotion: emotion,
 			intensity: intensity,
+			notes: notes,
 			createdAt: new Date()
 		})
 

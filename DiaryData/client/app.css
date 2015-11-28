@@ -21,7 +21,7 @@ h1,p,label{
 
 }
 h1{
-   margin:15px;
+ margin:15px;
 }
 .login-link-text{
 	color:#c97874;
@@ -43,8 +43,8 @@ p{
 body{
   background: #100a1c;
   background-image:
-    radial-gradient(50% 30% ellipse at center top, #201e40 0%, rgba(0,0,0,0) 100%),
-    radial-gradient(30% 50% ellipse at center bottom, #261226 0%, #100a1c 100%);
+  radial-gradient(50% 30% ellipse at center top, #201e40 0%, rgba(0,0,0,0) 100%),
+  radial-gradient(30% 50% ellipse at center bottom, #261226 0%, #100a1c 100%);
   background-attachment: fixed;
   color: #6cacc5;
 }
@@ -94,8 +94,23 @@ input[type=range]::-webkit-slider-thumb {
   width: 100px;
   height: 40px;
   transition: all 0.5s;
-  }
-  #submit:hover{
-    background: #201e40;
-  }
+}
+#submit:hover{
+  background: #201e40;
+}
+.notes{
+  
+  padding:5px;
+  color:#6cacc5;
+  width: 395px;
+  height: 100px;
+  font-weight:400;
+  font-size:18px;
+  font-family: Helvetica, Arial, sans-serif;
+  background:#201e40;
+  line-height:1em;
+  border:none;
+  box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);
+  outline:none;
+}
 
