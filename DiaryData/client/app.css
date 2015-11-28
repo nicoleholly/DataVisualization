@@ -53,7 +53,6 @@ input[type=range]:focus {
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: 2px solid;
-  background-color: white;
   border-radius: 50%;
   height: 25px;
   width: 25px;
@@ -65,15 +64,15 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 
-#submit{
+#submit, .dropdown-select{
   font-size: 16px;
   border: 0;
   background: rgba(42,50,113, .28);
   color: #6cacc5;
   cursor: pointer;
-  
+  outline:none;
   margin: 0.25em;
-  width: 80px;
+  width: 100px;
   height: 40px;
   transition: all 0.5s;
   }
