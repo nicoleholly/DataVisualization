@@ -1,15 +1,15 @@
 
 
-	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	var renderer = new THREE.WebGLRenderer();
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+var renderer = new THREE.WebGLRenderer();
 
-	renderer.setSize( window.innerWidth, window.innerHeight);
-	renderer.setClearColor(0xffffff, 1);
-	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
-	var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
-	var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
-	scene.add( cube );
+renderer.setSize( window.innerWidth, window.innerHeight);
+renderer.setClearColor(0xffffff, 1);
+var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
+var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
+var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+scene.add( cube );
 
 
 function three(){
@@ -21,54 +21,54 @@ function three(){
 }
 
 function getData(dataset){ 
-    
+	
 	d3.select("#viz").selectAll("div")
-	    .data(dataset)
-		    .enter()
-		    .append("div")
-		    .attr("class", "bar")
-		    .style("height", function(bar) {
-		  
-		        var barHeight = bar.intensity;
-		        return barHeight + "px";
-	    })
-		    .style("background-color", function(bar) {
-		    	var barColor = bar.emotion;
-		    	return barColor = switchEmotionColor(barColor);
-		    })
+	.data(dataset)
+	.enter()
+	.append("div")
+	.attr("class", "bar")
+	.style("height", function(bar) {
+		
+		var barHeight = bar.intensity;
+		return barHeight + "px";
+	})
+	.style("background-color", function(bar) {
+		var barColor = bar.emotion;
+		return barColor = switchEmotionColor(barColor);
+	})
 	
 };
 
 function switchEmotionColor(switchEmotion) {
-	    switch(switchEmotion) {
-			case 'happy':
-				return 'brown'
-				break;
-			case 'sad': 
-				return 'blue'
-				break;
-			case 'angry':
-				return 'red'
-				break;
-			case 'excited':
-				return 'orange'
-				break;
-			case 'guilt':
-				return 'grey'
-				break;
-			case 'relaxed':
-				return 'purple'
-				break;
-			case 'fear':
-				return 'black'
-				break;
-			case 'tired':
-				return 'green'
-				break;
-			case 'apathetic':
-				return 'beige'
-				break;
-		}
+	switch(switchEmotion) {
+		case 'happy':
+		return '#ebd0e9'
+		break;
+		case 'sad': 
+		return '#5949e8'
+		break;
+		case 'angry':
+		return '#ef94b1'
+		break;
+		case 'excited':
+		return '#f7ba9f'
+		break;
+		case 'guilt':
+		return '#e9f5a3'
+		break;
+		case 'relaxed':
+		return '#bb7fe9'
+		break;
+		case 'fear':
+		return '#eef970'
+		break;
+		case 'tired':
+		return '#78fcc1'
+		break;
+		case 'apathetic':
+		return '#c9f5ce'
+		break;
+	}
 }
 
 Template.form.events({
@@ -103,26 +103,27 @@ Template.canvas.onRendered(function(){
 	three();
 
 	this.autorun(function() { 
-	console.log("rerun");
-	var dataset = Template.currentData();
-	var geometry, group;
-	var mouseX = 0, mouseY = 0;
-	var windowHalfX = window.innerWidth / 2;
-	var windowHalfY = window.innerHeight / 2;
-	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		console.log("rerun");
+		var dataset = Template.currentData();
+		var geometry, group;
+		var mouseX = 0, mouseY = 0;
+		var windowHalfX = window.innerWidth / 2;
+		var windowHalfY = window.innerHeight / 2;
+		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
-	 
+		
 
 
 		
 		var group = new THREE.Group();
 		console.log(dataset.length);
-	for ( var i = 0; i < dataset.length; i++) {
-		console.log(dataset[i].intensity);
-		var size = (dataset[i].intensity/95);
-		var geometry = new THREE.DodecahedronGeometry( size,0);
-		var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion),  transparent: true, opacity: 0.5} );
-		var mesh = new THREE.Mesh( geometry, material );
+		for ( var i = 0; i < dataset.length; i++) {
+			console.log(dataset[i].intensity);
+			var lastEmotion = dataset[dataset.length-1];
+			var size = lastEmotion.intensity/95;
+			var geometry = new THREE.DodecahedronGeometry( size,0);
+			var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion),  transparent: true, opacity: 0.5} );
+			var mesh = new THREE.Mesh( geometry, material );
 			mesh.position.x = Math.random() * 10 - 5;
 			mesh.position.y = Math.random() * 10 - 5;
 			mesh.position.z = Math.random() * 10 - 5;
@@ -132,13 +133,12 @@ Template.canvas.onRendered(function(){
 
 			mesh.matrixAutoUpdate = false;
 			mesh.updateMatrix();
-			group.add( mesh );
-		}
+			
+			scene.add(mesh);
 
-	
+			}
 
-	scene.add( group );
-	console.log("WHAT THE FUCK "); //WHAT THE FUCK
+			scene.add( group );
 
 
 	camera.position.z = 5;
@@ -170,7 +170,6 @@ Template.canvas.onRendered(function(){
 
 	})
 })
-
- Accounts.ui.config({
-    passwordSignupFields: "USERNAME_ONLY"
-  });
+Accounts.ui.config({
+	passwordSignupFields: "USERNAME_ONLY"
+});
