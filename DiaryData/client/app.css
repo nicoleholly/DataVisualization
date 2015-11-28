@@ -23,8 +23,15 @@ h1,p,label{
 h1{
    margin:15px;
 }
-.login-link-text,p{
+.login-link-text{
 	color:#c97874;
+  margin-top:35px;
+  padding:10px;
+  background-color: rgba(42,50,113, .28);
+}
+p{
+  margin-bottom:15px;
+  color:#c97874;
 }
 .login,.form,.visual{
 	margin:0 auto;
