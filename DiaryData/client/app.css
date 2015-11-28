@@ -64,3 +64,20 @@ input[type=range]::-webkit-slider-thumb {
   transition: border 1000ms ease;
 }
 
+
+#submit{
+  font-size: 16px;
+  border: 0;
+  background: rgba(42,50,113, .28);
+  color: #6cacc5;
+  cursor: pointer;
+  
+  margin: 0.25em;
+  width: 80px;
+  height: 40px;
+  transition: all 0.5s;
+  }
+  #submit:hover{
+    background: #201e40;
+  }
+
