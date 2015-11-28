@@ -17,6 +17,69 @@ function three(){
 	var template = document.getElementById("canvas");
 	template.appendChild( renderer.domElement ); 
 
+			mesh.matrixAutoUpdate = false;
+			mesh.updateMatrix();
+
+			group.add( mesh );
+		}
+
+	scene.add( group );
+		
+	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
+	var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
+	var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+	scene.add( cube );
+
+/*
+	var centerGeometry = new THREE.TorusKnotGeometry(1, 20, 50, 10);
+	// vertex colors
+  	var colors = [];
+  	for (var j = 0; j < centerGeometry.vertices.length; j++) {
+    	// blue color
+    	colors[j] = new THREE.Color();
+    //	var currentHSL = (switchEmotionColor(dataset[i].emotion)['hsl']);
+    	colors[j].setHSL(0.5, Math.random(), Math.random()); //to change to white:set third value to 1,random color:set first value to random
+  		
+  		centerGeometry.colors = colors;
+	}	
+
+	// material
+  	var centerMaterial = new THREE.PointCloudMaterial({
+    	size: .1,
+    	vertexColors: THREE.VertexColors
+  	});
+
+	var center = new THREE.PointCloud( centerGeometry, centerMaterial );
+	center.rotation.x = Math.random() * 2 * Math.PI;
+	center.rotation.y = Math.random() * 2 * Math.PI;
+	scene.add(center);
+*/
+
+	scene.add( new THREE.AmbientLight( 0x404040 ) );
+
+	camera.position.z = 5;
+
+	function onDocumentMouseMove( event ) {
+		mouseX = ( event.clientX - windowHalfX ) * .1;
+		mouseY = ( event.clientY - windowHalfY ) * .1;
+	}
+
+	function render() {
+		requestAnimationFrame( render );
+		cube.rotation.x += 0.02;
+		cube.rotation.y += 0.02; 
+
+		//cube.rotation.z += 0.02;
+
+		camera.position.x += ( mouseX - camera.position.x ) * .05;
+		camera.position.y += ( - mouseY - camera.position.y ) * .05;
+		camera.position.z = 5;
+
+		camera.lookAt( scene.position );
+		
+		renderer.render( scene, camera );
+	}
+	render();
 	
 }
 
