@@ -14,20 +14,25 @@
 	text-align: center;
 }
 
-h1,p,h2,label{
+h1,p,label{
 	text-align:center;
-	color:white;
+	color: #6cacc5;
 	font-family:sans-serif;
 }
-.login-link-text{
-	color:white;
+.login-link-text,p{
+	color:#c97874;
 }
 .login,.form,.visual{
 	margin:0 auto;
 	width:100%;
 }
 body{
-	background-color:#131720;
+  background: #100a1c;
+  background-image:
+    radial-gradient(50% 30% ellipse at center top, #201e40 0%, rgba(0,0,0,0) 100%),
+    radial-gradient(60% 50% ellipse at center bottom, #261226 0%, #100a1c 100%);
+  background-attachment: fixed;
+  color: #6cacc5;
 }
 
 
