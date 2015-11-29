@@ -30,9 +30,6 @@ Template.canvas.onRendered(function(){
 		var dataset = Template.currentData();
 		three(dataset);
 	});
-	Accounts.ui.config({
-		passwordSignupFields: "USERNAME_ONLY"
-	});
 });
 
 
@@ -254,4 +251,8 @@ function switchEmotionColor(switchEmotion) {
 		break;
 	}
 }
+
+Accounts.ui.config({
+		passwordSignupFields: "USERNAME_ONLY"
+	});
 
