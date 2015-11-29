@@ -30,9 +30,6 @@ Template.canvas.onRendered(function(){
 		var dataset = Template.currentData();
 		three(dataset);
 	});
-	Accounts.ui.config({
-		passwordSignupFields: "USERNAME_ONLY"
-	});
 });
 
 
@@ -89,7 +86,6 @@ function init(){
 
 	renderer = new THREE.WebGLRenderer( {alpha: true} );
 	renderer.setSize( window.innerWidth, window.innerHeight);
-	renderer.setClearColor(0xffffff, 0);
 
 	template = document.getElementById("canvas");
 	template.appendChild( renderer.domElement ); 
@@ -155,6 +151,16 @@ function D3(dataset){
 };
 
 function D3visualization ( dataset ) {
+	
+	var xScale = d3.scale.linear()
+	.domain([0, d3.max(dataset, function(d) { return d.createdAt.getSeconds(); })])
+	.range([0, 1000]);
+
+	var yScale = d3.scale.linear()
+	.domain([0, d3.max(dataset, function(d) { return d.createdAt.getMilliseconds(); })])
+	.range([0, 600]);
+
+
 	var svg = d3.select("#viz")
 	.append("svg")
 	.attr("width", 1000)
@@ -164,12 +170,25 @@ function D3visualization ( dataset ) {
 	.data(dataset)
 	.enter()
 	.append("circle")
+	.on("mouseover", function(){
+		console.log(circleText);
+		
+		return circleText.style("visibility", "visible");
+	})
+	
+	.on("mouseout", function(){
+		return circleText.style("visibility", "hidden");
+	})
+
 
 	.attr("cx", function(d) {
-		return d.createdAt.getSeconds();
+		
+		return xScale(d.createdAt.getSeconds()); 
 	})
 	.attr("cy", function(d) {
-		return d.createdAt.getMilliseconds();
+		console.log(d.createdAt.getMilliseconds());
+		console.log(xScale(d.createdAt.getMilliseconds()));
+		return yScale(d.createdAt.getMilliseconds()); 
 	})
 	.attr("r", function(d){
 		return d.intensity/2;
@@ -177,23 +196,27 @@ function D3visualization ( dataset ) {
 	.style("fill", function(d){
 		return switchEmotionColor(d.emotion);
 	});
-	svg.selectAll("text")
+	var circleText = svg.selectAll("text")
 	.data(dataset)
 	.enter()
 	.append("text")
 	.text(function(d) {
 		console.log(d.notes);
-		return d.notes;
+		return d.notes + ' ' + d.createdAt;
 	})
+	.style("visibility", "hidden")
+	.attr('class','text')
+
+
 	.attr("x", function(d) {
-		return d.createdAt.getSeconds();
+		return xScale(d.createdAt.getSeconds());
 	})
 	.attr("y", function(d) {
-		return d.createdAt.getMilliseconds();
+		return yScale(d.createdAt.getMilliseconds());
 	})
 	.attr("font-family", "sans-serif")
 	.attr("font-size", "11px")
-	.attr("fill", "#c97874");
+	.attr("fill", "#6cacc5");
 }
 
 
@@ -228,4 +251,8 @@ function switchEmotionColor(switchEmotion) {
 		break;
 	}
 }
+
+Accounts.ui.config({
+		passwordSignupFields: "USERNAME_ONLY"
+	});
 
