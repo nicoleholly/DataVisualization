@@ -1,5 +1,90 @@
-initialized = false;
+THREEinitialized = false;
 D3initialized = false;
+
+Template.form.events({
+	"submit form" : function(e) {
+		e.preventDefault();
+		var emotion = $('#emotion').val();
+		var intensity = $('#intensity').val();
+		var notes = $('.notes').val();
+
+		Transactions.insert({
+			userID: Meteor.userId(),
+			emotion: emotion,
+			intensity: intensity,
+			notes: notes,
+			createdAt: new Date()
+		})
+	}
+});
+
+Template.visualization.onRendered(function(){
+	this.autorun(function() {
+		var dataset = Template.currentData();
+		D3(dataset);
+
+	})
+
+})
+
+Template.canvas.onRendered(function(){
+
+	this.autorun(function() { 
+		var dataset = Template.currentData();
+		three(dataset);
+	});
+
+	Accounts.ui.config({
+		passwordSignupFields: "USERNAME_ONLY"
+	});
+});
+
+
+function three(dataset){
+	var container, stats;
+	var geometry, group;
+	var mouseX = 0, mouseY = 0;
+	var windowHalfX = window.innerWidth / 2;
+	var windowHalfY = window.innerHeight / 2;
+	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+	if (THREEinitialized == false) {
+		init();
+		THREEinitialized = true;
+	}
+
+	else {
+		for( var i = this.scene.children.length - 1; i >= 0; i--) {
+			obj = scene.children[i];
+			scene.remove(obj); 
+		}
+	}
+
+	threeVisualization(dataset);	
+
+	function onDocumentMouseMove( event ) {
+		mouseX = ( event.clientX - windowHalfX ) * .1;
+		mouseY = ( event.clientY - windowHalfY ) * .1;
+	}
+
+	function render() {
+		requestAnimationFrame( render );
+		cube.rotation.x += 0.02;
+		cube.rotation.y += 0.02; 
+
+		//cube.rotation.z += 0.02;
+
+		camera.position.x += ( mouseX - camera.position.x ) * .05;
+		camera.position.y += ( - mouseY - camera.position.y ) * .05;
+		camera.position.z = 5;
+
+		camera.lookAt( scene.position );
+		
+		renderer.render( scene, camera );
+	}
+	render();
+	
+}
 
 function init(){
 	scene = new THREE.Scene();
@@ -15,7 +100,7 @@ function init(){
 	template.appendChild( renderer.domElement ); 
 }
 
-function threeViz ( dataset) {
+function threeVisualization ( dataset) {
 	var group = new THREE.Group();
 	for ( var i = 0; i < dataset.length; i++) {
 		var size = (dataset[i].intensity/95)
@@ -44,52 +129,35 @@ function threeViz ( dataset) {
 
 }
 
-function three(dataset){
-	var container, stats;
-	var geometry, group;
-	var mouseX = 0, mouseY = 0;
-	var windowHalfX = window.innerWidth / 2;
-	var windowHalfY = window.innerHeight / 2;
-	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+function D3(dataset){ 
 
-	if (initialized == 0) {
-		init();
-		initialized = true;
+	if (D3initialized == false) {
+		D3visualization (dataset);
+		D3initialized = true;
 	}
 
 	else {
-		for( var i = this.scene.children.length - 1; i >= 0; i--) {
-			obj = scene.children[i];
-			scene.remove(obj); 
-		}
-	}
+	  	// Clears the SVG canvas.
+	  	d3.select('svg').remove();
+	  	D3visualization ( dataset );
+	  }
 
-	threeViz ( dataset );	
-
-	function onDocumentMouseMove( event ) {
-		mouseX = ( event.clientX - windowHalfX ) * .1;
-		mouseY = ( event.clientY - windowHalfY ) * .1;
-	}
-
-	function render() {
-		requestAnimationFrame( render );
-		cube.rotation.x += 0.02;
-		cube.rotation.y += 0.02; 
-
-		//cube.rotation.z += 0.02;
-
-		camera.position.x += ( mouseX - camera.position.x ) * .05;
-		camera.position.y += ( - mouseY - camera.position.y ) * .05;
-		camera.position.z = 5;
-
-		camera.lookAt( scene.position );
+	/**d3.select("#viz").selectAll("div")
+	.data(dataset)
+	.enter()
+	.append("div")
+	.attr("class", "bar")
+	.style("height", function(bar) {
 		
-		renderer.render( scene, camera );
-	}
-	render();
-	
-}
-
+		var barHeight = bar.intensity;
+		return barHeight + "px";
+	})
+	.style("background-color", function(bar) {
+		var barColor = bar.emotion;
+		return barColor = switchEmotionColor(barColor);
+	})
+**/
+};
 
 function D3visualization ( dataset ) {
 	var svg = d3.select("#viz")
@@ -135,36 +203,6 @@ function D3visualization ( dataset ) {
 }
 
 
-function getData(dataset){ 
-
-	if (D3initialized == false) {
-		D3visualization (dataset);
-		D3initialized = true;
-	}
-
-	else {
-	  	// Clears the SVG canvas.
-	  	d3.select('svg').remove();
-	  	D3visualization ( dataset );
-	  }
-
-	/**d3.select("#viz").selectAll("div")
-	.data(dataset)
-	.enter()
-	.append("div")
-	.attr("class", "bar")
-	.style("height", function(bar) {
-		
-		var barHeight = bar.intensity;
-		return barHeight + "px";
-	})
-	.style("background-color", function(bar) {
-		var barColor = bar.emotion;
-		return barColor = switchEmotionColor(barColor);
-	})
-**/
-};
-
 function switchEmotionColor(switchEmotion) {
 	switch(switchEmotion) {
 		case 'happy':
@@ -196,45 +234,4 @@ function switchEmotionColor(switchEmotion) {
 		break;
 	}
 }
-
-Template.form.events({
-	"submit form" : function(e) {
-		e.preventDefault();
-		var emotion = $('#emotion').val();
-		var intensity = $('#intensity').val();
-		var notes = $('.notes').val();
-
-		Transactions.insert({
-			userID: Meteor.userId(),
-			emotion: emotion,
-			intensity: intensity,
-			notes: notes,
-			createdAt: new Date()
-		})
-
-	//	getData();
-}
-});
-
-Template.visualization.onRendered(function(){
-	this.autorun(function() {
-		var dataset = Template.currentData();
-
-		getData(dataset);
-
-	})
-
-})
-
-Template.canvas.onRendered(function(){
-
-	this.autorun(function() { 
-		var dataset = Template.currentData();
-		three(dataset);
-	});
-
-	Accounts.ui.config({
-		passwordSignupFields: "USERNAME_ONLY"
-	});
-});
 
