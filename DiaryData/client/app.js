@@ -1,4 +1,5 @@
 initialized = 0;
+D3initialized = 0;
 
 function init(dataset){
 	console.log('initializing');
@@ -113,8 +114,7 @@ function three(dataset){
 }
 
 
-function getData(dataset){ 
-	
+function D3chart ( dataset ) {
 	var svg = d3.select("#viz")
 	.append("svg")
 	.attr("width", 1000)
@@ -155,7 +155,21 @@ function getData(dataset){
 	.attr("font-family", "sans-serif")
 	.attr("font-size", "11px")
 	.attr("fill", "#c97874");
+}
 
+
+function getData(dataset){ 
+
+	if (D3initialized == 0) {
+		 D3chart (dataset);
+		D3initialized += 1;
+	}
+
+	else {
+	  	// Clears the SVG canvas.
+    	d3.select('svg').remove();
+    	D3chart ( dataset );
+	}
 
 	/**d3.select("#viz").selectAll("div")
 	.data(dataset)
@@ -221,13 +235,14 @@ Template.form.events({
 			createdAt: new Date()
 		})
 
-		getData();
+	//	getData();
 	}
 });
 
 Template.visualization.onRendered(function(){
 	this.autorun(function() {
 		var dataset = Template.currentData();
+
 		getData(dataset);
 
 	})
