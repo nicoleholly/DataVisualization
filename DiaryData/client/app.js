@@ -174,7 +174,7 @@ function D3visualization ( dataset ) {
 	.enter()
 	.append("circle")
 	.on("mouseover", function(){
-
+		console.log(circleText);
 		
 		return circleText.style("visibility", "visible");
 	})
