@@ -19,7 +19,7 @@
 
 <template name="form">
 
-	<form>
+	<form id = "transaction">
 
 		<h1><label for ="emotion">How are you feeling today?</label></h1> <br />
 		{{>emotionPicker}}
@@ -30,42 +30,43 @@
 </template>
 
 <template name ="emotionPicker">
-
-	<select class="dropdown-select" id="emotion" name="emotion">
-		  <option value="happy">Happy</option>
-		  <option value="sad">Sad</option>
-		  <option value="angry">Angry</option>
-		  <option value="fear">Fear</option>
-		  <option value="guilt">Guilt</option>
-		  <option value="excited">Excited</option>
-		  <option value="relaxed">Relaxed</option>
-		  <option value="tired">Tired</option>
-		  <option value="apathetic">Apathetic</option>
+	<section id = "dropdown">	
+		<select class="dropdown-select" id="emotion" name="emotion">
+			<option value="happy">Happy</option>
+			<option value="sad">Sad</option>
+			<option value="angry">Angry</option>
+			<option value="fear">Fear</option>
+			<option value="guilt">Guilt</option>
+			<option value="excited">Excited</option>
+			<option value="relaxed">Relaxed</option>
+			<option value="tired">Tired</option>
+			<option value="apathetic">Apathetic</option>
 		</select>
-		<br>
-		
+	</section>
+
+	<section id = "range">
 		<label for="intensity">Intensity</label>
 		<input class="range blue" id="intensity" name="intensity" type="range" min=1 max=100 value=0>
-		<br>
-
+	</section>
+	<section id = "notes">
 		<textarea class = "notes" name = "notes" placeholder = "Type any notes here...." ></textarea>
-		<br>
+	</section>
 </template>
 
 
 
 <template name ="visualization">
 	{{#if currentUser}}
-		<div id ="viz">
-			{{#each data}}
-			<div>{{emotion}}</div>
-			{{/each}}
-		</div>
+	<div id ="viz">
+		{{#each data}}
+		<div>{{emotion}}</div>
+		{{/each}}
+	</div>
 	{{/if}}
 </template>
 
 <template name="canvas">
-		{{#if currentUser}}
+	{{#if currentUser}}
 
 	<div id="canvas">
 	</div>

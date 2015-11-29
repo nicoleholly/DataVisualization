@@ -128,4 +128,17 @@ input[type=range]::-webkit-slider-thumb {
 :-ms-input-placeholder {  
   color:#6cacc5;
 }
+#dropdown,#notes,#range{
+  display:block;
+}
+
+#notes,#range{
+  margin-top:20px;
+}
+#transaction{
+  width:50%;
+  margin:40px auto;
+  padding-top:20px;
+  padding-bottom:40px;
+}
 
