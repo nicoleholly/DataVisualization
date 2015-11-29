@@ -89,7 +89,6 @@ function init(){
 
 	renderer = new THREE.WebGLRenderer( {alpha: true} );
 	renderer.setSize( window.innerWidth, window.innerHeight);
-	renderer.setClearColor(0xffffff, 0);
 
 	template = document.getElementById("canvas");
 	template.appendChild( renderer.domElement ); 
@@ -155,6 +154,15 @@ function D3(dataset){
 };
 
 function D3visualization ( dataset ) {
+	var xScale = d3.scale.linear()
+	.domain([0, d3.max(dataset, function(d) { return d.createdAt.getSeconds(); })])
+	.range([0, 1000]);
+
+	var yScale = d3.scale.linear()
+	.domain([0, d3.max(dataset, function(d) { return d.createdAt.getMilliseconds(); })])
+	.range([0, 600]);
+
+
 	var svg = d3.select("#viz")
 	.append("svg")
 	.attr("width", 1000)
@@ -166,10 +174,13 @@ function D3visualization ( dataset ) {
 	.append("circle")
 
 	.attr("cx", function(d) {
-		return d.createdAt.getSeconds();
+		
+		return xScale(d.createdAt.getSeconds()); 
 	})
 	.attr("cy", function(d) {
-		return d.createdAt.getMilliseconds();
+		console.log(d.createdAt.getMilliseconds());
+		console.log(xScale(d.createdAt.getMilliseconds()));
+		return yScale(d.createdAt.getMilliseconds()); 
 	})
 	.attr("r", function(d){
 		return d.intensity/2;
@@ -186,10 +197,10 @@ function D3visualization ( dataset ) {
 		return d.notes;
 	})
 	.attr("x", function(d) {
-		return d.createdAt.getSeconds();
+		return xScale(d.createdAt.getSeconds());
 	})
 	.attr("y", function(d) {
-		return d.createdAt.getMilliseconds();
+		return yScale(d.createdAt.getMilliseconds());
 	})
 	.attr("font-family", "sans-serif")
 	.attr("font-size", "11px")
