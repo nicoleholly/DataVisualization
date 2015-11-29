@@ -1,11 +1,11 @@
-initialized = 0;
-D3initialized = 0;
+initialized = false;
+D3initialized = false;
 
-function init(dataset){
-	console.log('initializing');
+function init(){
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	camera.position.z = 800;
+	camera.position.z = 5;
+
 
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight);
@@ -13,7 +13,9 @@ function init(dataset){
 
 	template = document.getElementById("canvas");
 	template.appendChild( renderer.domElement ); 
+}
 
+function threeViz ( dataset) {
 	var group = new THREE.Group();
 	for ( var i = 0; i < dataset.length; i++) {
 		var size = (dataset[i].intensity/95)
@@ -51,43 +53,18 @@ function three(dataset){
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
 	if (initialized == 0) {
-		init( dataset );
-		initialized += 1;
+		init();
+		initialized = true;
 	}
+
 	else {
 		for( var i = this.scene.children.length - 1; i >= 0; i--) {
 			obj = scene.children[i];
 			scene.remove(obj); 
 		}
-
-		var group = new THREE.Group();
-		for ( var i = 0; i < dataset.length; i++) {
-			var size = (dataset[i].intensity/95)
-			var geometry = new THREE.DodecahedronGeometry( size, 0);
-			var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: false, transparent: true, opacity: 0.5} );
-			var mesh = new THREE.Mesh( geometry, material );
-			mesh.position.x = Math.random() * 10 - 5;
-			mesh.position.y = Math.random() * 10 - 5;
-			mesh.position.z = Math.random() * 10 - 5;
-
-			mesh.rotation.x = Math.random() * 2 * Math.PI;
-			mesh.rotation.y = Math.random() * 2 * Math.PI;
-
-			mesh.matrixAutoUpdate = false;
-			mesh.updateMatrix();
-
-			group.add( mesh );
-		}
-
-		scene.add( group );
-
-		var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
-		var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
-		cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
-		scene.add( cube );
 	}
 
-	camera.position.z = 5;
+	threeViz ( dataset );	
 
 	function onDocumentMouseMove( event ) {
 		mouseX = ( event.clientX - windowHalfX ) * .1;
@@ -114,7 +91,7 @@ function three(dataset){
 }
 
 
-function D3chart ( dataset ) {
+function D3visualization ( dataset ) {
 	var svg = d3.select("#viz")
 	.append("svg")
 	.attr("width", 1000)
@@ -160,16 +137,16 @@ function D3chart ( dataset ) {
 
 function getData(dataset){ 
 
-	if (D3initialized == 0) {
-		 D3chart (dataset);
-		D3initialized += 1;
+	if (D3initialized == false) {
+		D3visualization (dataset);
+		D3initialized = true;
 	}
 
 	else {
 	  	// Clears the SVG canvas.
-    	d3.select('svg').remove();
-    	D3chart ( dataset );
-	}
+	  	d3.select('svg').remove();
+	  	D3visualization ( dataset );
+	  }
 
 	/**d3.select("#viz").selectAll("div")
 	.data(dataset)
@@ -236,7 +213,7 @@ Template.form.events({
 		})
 
 	//	getData();
-	}
+}
 });
 
 Template.visualization.onRendered(function(){
