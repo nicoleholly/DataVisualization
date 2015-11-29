@@ -20,6 +20,10 @@ Template.form.events({
 		else {
 			document.getElementById('warning').classList.remove("hidden");
 		}
+
+		$('.notes').val("");
+
+		
 	}
 });
 
@@ -232,7 +236,7 @@ function D3visualization ( dataset ) {
 	.append("text")
 	.text(function(d) {
 		console.log(d.notes);
-		return d.notes + ' ' + d.createdAt;
+		return d.notes;
 	})
 	.style("visibility", "hidden")
 	.attr('class','text')
