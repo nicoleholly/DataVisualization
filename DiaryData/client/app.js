@@ -1,4 +1,5 @@
 initialized = 0;
+D3initialized = 0;
 
 function init(dataset){
 	console.log('initializing');
@@ -113,12 +114,11 @@ function three(dataset){
 }
 
 
-function getData(dataset){ 
-	
+function D3chart ( dataset ) {
 	var svg = d3.select("#viz")
 	.append("svg")
 	.attr("width", 1000)
-	.attr("height", 1000)
+	.attr("height", 1000);
 
 	svg.selectAll("circle")
 	.data(dataset)
@@ -127,39 +127,49 @@ function getData(dataset){
 
 	.attr("cx", function(d) {
 		
-
-        return d.createdAt.getSeconds();
-   })
-   .attr("cy", function(d) {
-        return d.createdAt.getMilliseconds();
-   })
-   .attr("r", function(d){
-   		return d.intensity/2;
-   })
-   .style("fill", function(d){
-   	return switchEmotionColor(d.emotion);
-   });
-   svg.selectAll("text")
-   .data(dataset)
-   .enter()
-   .append("text")
-   .text(function(d) {
-   		console.log(d.notes);
-        return d.notes;
-   })
-   .attr("x", function(d) {
-   		console.log(d.createdAt.getSeconds());
-        return d.createdAt.getSeconds()*10;
-   })
-   .attr("y", function(d) {
-        return d.createdAt.getMilliseconds();
-   })
-   .attr("font-family", "sans-serif")
-   .attr("font-size", "11px")
-   .attr("fill", "#c97874");
-
+		return d.createdAt.getSeconds();
+	})
+	.attr("cy", function(d) {
+		return d.createdAt.getMilliseconds();
+	})
+	.attr("r", function(d){
+		return d.intensity/2;
+	})
+	.style("fill", function(d){
+		return switchEmotionColor(d.emotion);
+	});
+	svg.selectAll("text")
+	.data(dataset)
+	.enter()
+	.append("text")
+	.text(function(d) {
+		console.log(d.notes);
+		return d.notes;
+	})
+	.attr("x", function(d) {
+		return d.createdAt.getSeconds();
+	})
+	.attr("y", function(d) {
+		return d.createdAt.getMilliseconds();
+	})
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "11px")
+	.attr("fill", "#c97874");
+}
 
 
+function getData(dataset){ 
+
+	if (D3initialized == 0) {
+		 D3chart (dataset);
+		D3initialized += 1;
+	}
+
+	else {
+	  	// Clears the SVG canvas.
+    	d3.select('svg').remove();
+    	D3chart ( dataset );
+	}
 
 	/**d3.select("#viz").selectAll("div")
 	.data(dataset)
@@ -225,13 +235,14 @@ Template.form.events({
 			createdAt: new Date()
 		})
 
-		getData();
+	//	getData();
 	}
 });
 
 Template.visualization.onRendered(function(){
 	this.autorun(function() {
 		var dataset = Template.currentData();
+
 		getData(dataset);
 
 	})
