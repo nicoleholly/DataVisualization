@@ -22,7 +22,52 @@ function three(){
 
 function getData(dataset){ 
 	
-	d3.select("#viz").selectAll("div")
+	
+	var svg = d3.select("#viz")
+	.append("svg")
+	.attr("width", 1000)
+	.attr("height", 1000);
+
+	svg.selectAll("circle")
+	.data(dataset)
+	.enter()
+	.append("circle")
+
+	.attr("cx", function(d) {
+		
+        return d.createdAt.getSeconds();
+   })
+   .attr("cy", function(d) {
+        return d.createdAt.getMilliseconds();
+   })
+   .attr("r", function(d){
+   		return d.intensity/2;
+   })
+   .style("fill", function(d){
+   	return switchEmotionColor(d.emotion);
+   });
+   svg.selectAll("text")
+   .data(dataset)
+   .enter()
+   .append("text")
+   .text(function(d) {
+   		console.log(d.notes);
+        return d.notes;
+   })
+   .attr("x", function(d) {
+        return d.createdAt.getSeconds();
+   })
+   .attr("y", function(d) {
+        return d.createdAt.getMilliseconds();
+   })
+   .attr("font-family", "sans-serif")
+   .attr("font-size", "11px")
+   .attr("fill", "#c97874");
+
+
+	
+
+	/**d3.select("#viz").selectAll("div")
 	.data(dataset)
 	.enter()
 	.append("div")
@@ -36,7 +81,7 @@ function getData(dataset){
 		var barColor = bar.emotion;
 		return barColor = switchEmotionColor(barColor);
 	})
-	
+**/
 };
 
 function switchEmotionColor(switchEmotion) {
@@ -138,25 +183,25 @@ Template.canvas.onRendered(function(){
 			
 			scene.add(mesh);
 
-			}
+		}
 
-			scene.add( group );
-
-
-	camera.position.z = 5;
+		scene.add( group );
 
 
+		camera.position.z = 5;
 
 
-	function onDocumentMouseMove( event ) {
-		mouseX = ( event.clientX - windowHalfX ) * .1;
-		mouseY = ( event.clientY - windowHalfY ) * .1;
-	}
 
-	function render() {
-		requestAnimationFrame( render );
-		cube.rotation.x = 0.02;
-		cube.rotation.y = 0.02; 
+
+		function onDocumentMouseMove( event ) {
+			mouseX = ( event.clientX - windowHalfX ) * .1;
+			mouseY = ( event.clientY - windowHalfY ) * .1;
+		}
+
+		function render() {
+			requestAnimationFrame( render );
+			cube.rotation.x = 0.02;
+			cube.rotation.y = 0.02; 
 		//cube.rotation.z += 0.02;
 
 
@@ -170,7 +215,7 @@ Template.canvas.onRendered(function(){
 	render();
 	
 
-	})
+})
 })
 Accounts.ui.config({
 	passwordSignupFields: "USERNAME_ONLY"
