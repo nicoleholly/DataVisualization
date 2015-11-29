@@ -8,14 +8,7 @@ Template.form.events({
 		var intensity = $('#intensity').val();
 		var notes = $('.notes').val();
 
-		if(Meteor.userId() == null) {
-			document.getElementById('warning').classList.remove("hidden");
-		}
-
 		if(Meteor.userId() != null ){
-			if(!document.getElementById('warning').classList.contains('hidden')) {
-				document.getElementById('warning').classList.add('hidden');
-			}
 			Transactions.insert({
 				userID: Meteor.userId(),
 				emotion: emotion,
@@ -24,21 +17,24 @@ Template.form.events({
 				createdAt: new Date()
 			})
 		}
+		else {
+			document.getElementById('warning').classList.remove("hidden");
+		}
+
 		$('.notes').val("");
+
+		
 	}
 });
 
 Template.visualization.onRendered(function(){
 	this.autorun(function() {
-		if(Meteor.userId() != null ){
-			console.log(document.getElementById('warning').classList);
-			if(!document.getElementById('warning').classList.contains('hidden')) {
-				document.getElementById('warning').classList.add('hidden');
-			}
+		if(Meteor.userId() != null && !document.getElementById('warning').classList.contains('hidden')) {
+			document.getElementById('warning').classList.add('hidden');
 		}
-			var dataset = Template.currentData();
-			D3(dataset);
-		})
+		var dataset = Template.currentData();
+		D3(dataset);
+	})
 })
 
 Template.canvas.onRendered(function(){
