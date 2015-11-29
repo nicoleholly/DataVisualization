@@ -26,7 +26,7 @@ function getData(dataset){
 	var svg = d3.select("#viz")
 	.append("svg")
 	.attr("width", 1000)
-	.attr("height", 1000);
+	.attr("height", 1000)
 
 	svg.selectAll("circle")
 	.data(dataset)
@@ -55,7 +55,8 @@ function getData(dataset){
         return d.notes;
    })
    .attr("x", function(d) {
-        return d.createdAt.getSeconds();
+   		console.log(d.createdAt.getSeconds());
+        return d.createdAt.getSeconds()*10;
    })
    .attr("y", function(d) {
         return d.createdAt.getMilliseconds();
