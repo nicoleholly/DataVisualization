@@ -22,18 +22,14 @@ Template.visualization.onRendered(function(){
 	this.autorun(function() {
 		var dataset = Template.currentData();
 		D3(dataset);
-
 	})
-
 })
 
 Template.canvas.onRendered(function(){
-
 	this.autorun(function() { 
 		var dataset = Template.currentData();
 		three(dataset);
 	});
-
 	Accounts.ui.config({
 		passwordSignupFields: "USERNAME_ONLY"
 	});
@@ -78,8 +74,7 @@ function three(dataset){
 		camera.position.y += ( - mouseY - camera.position.y ) * .05;
 		camera.position.z = 5;
 
-		camera.lookAt( scene.position );
-		
+		camera.lookAt( scene.position );	
 		renderer.render( scene, camera );
 	}
 	render();
@@ -92,9 +87,9 @@ function init(){
 	camera.position.z = 5;
 
 
-	renderer = new THREE.WebGLRenderer();
+	renderer = new THREE.WebGLRenderer( {alpha: true} );
 	renderer.setSize( window.innerWidth, window.innerHeight);
-	renderer.setClearColor(0xffffff, 1);
+	renderer.setClearColor(0xffffff, 0);
 
 	template = document.getElementById("canvas");
 	template.appendChild( renderer.domElement ); 
@@ -171,7 +166,6 @@ function D3visualization ( dataset ) {
 	.append("circle")
 
 	.attr("cx", function(d) {
-		
 		return d.createdAt.getSeconds();
 	})
 	.attr("cy", function(d) {
