@@ -1,35 +1,27 @@
 
-
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-var renderer = new THREE.WebGLRenderer();
-
-renderer.setSize( window.innerWidth, window.innerHeight);
-renderer.setClearColor(0xffffff, 1);
-var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
-var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
-var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
-scene.add( cube );
-
-
 function three(){
 
-	var template = document.getElementById("canvas");
-	template.appendChild( renderer.domElement ); 
+	var scene = new THREE.Scene();
+	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	var renderer = new THREE.WebGLRenderer();
 
-			mesh.matrixAutoUpdate = false;
-			mesh.updateMatrix();
-
-			group.add( mesh );
-		}
-
-	scene.add( group );
-		
+	renderer.setSize( window.innerWidth, window.innerHeight);
+	renderer.setClearColor(0xffffff, 1);
 	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
 	var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
 	var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 	scene.add( cube );
 
+	var template = document.getElementById("canvas");
+	template.appendChild( renderer.domElement ); 
+/*
+	mesh.matrixAutoUpdate = false;
+	mesh.updateMatrix();
+
+	group.add( mesh );
+
+	scene.add( group );
+*/
 /*
 	var centerGeometry = new THREE.TorusKnotGeometry(1, 20, 50, 10);
 	// vertex colors
@@ -53,7 +45,7 @@ function three(){
 	center.rotation.x = Math.random() * 2 * Math.PI;
 	center.rotation.y = Math.random() * 2 * Math.PI;
 	scene.add(center);
-*/
+	*/
 
 	scene.add( new THREE.AmbientLight( 0x404040 ) );
 
@@ -80,7 +72,7 @@ function three(){
 		renderer.render( scene, camera );
 	}
 	render();
-	
+
 }
 
 function getData(dataset){ 
@@ -98,34 +90,34 @@ function getData(dataset){
 
 	.attr("cx", function(d) {
 		
-        return d.createdAt.getSeconds();
-   })
-   .attr("cy", function(d) {
-        return d.createdAt.getMilliseconds();
-   })
-   .attr("r", function(d){
-   		return d.intensity/2;
-   })
-   .style("fill", function(d){
-   	return switchEmotionColor(d.emotion);
-   });
-   svg.selectAll("text")
-   .data(dataset)
-   .enter()
-   .append("text")
-   .text(function(d) {
-   		console.log(d.notes);
-        return d.notes;
-   })
-   .attr("x", function(d) {
-        return d.createdAt.getSeconds();
-   })
-   .attr("y", function(d) {
-        return d.createdAt.getMilliseconds();
-   })
-   .attr("font-family", "sans-serif")
-   .attr("font-size", "11px")
-   .attr("fill", "#c97874");
+		return d.createdAt.getSeconds();
+	})
+	.attr("cy", function(d) {
+		return d.createdAt.getMilliseconds();
+	})
+	.attr("r", function(d){
+		return d.intensity/2;
+	})
+	.style("fill", function(d){
+		return switchEmotionColor(d.emotion);
+	});
+	svg.selectAll("text")
+	.data(dataset)
+	.enter()
+	.append("text")
+	.text(function(d) {
+		console.log(d.notes);
+		return d.notes;
+	})
+	.attr("x", function(d) {
+		return d.createdAt.getSeconds();
+	})
+	.attr("y", function(d) {
+		return d.createdAt.getMilliseconds();
+	})
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "11px")
+	.attr("fill", "#c97874");
 
 
 	
