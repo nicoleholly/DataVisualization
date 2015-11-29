@@ -8,7 +8,7 @@ Template.form.events({
 		var intensity = $('#intensity').val();
 		var notes = $('.notes').val();
 
-		if(Meteor.userId() != null ){
+		if(Meteor.userId()){
 			Transactions.insert({
 				userID: Meteor.userId(),
 				emotion: emotion,
@@ -25,7 +25,7 @@ Template.form.events({
 
 Template.visualization.onRendered(function(){
 	this.autorun(function() {
-		if(Meteor.userId() != null && !document.getElementById('warning').classList.contains('hidden')) {
+		if(Meteor.userId() && !document.getElementById('warning').classList.contains('hidden')) {
 			document.getElementById('warning').classList.add('hidden');
 		}
 		var dataset = Template.currentData();
@@ -101,22 +101,44 @@ function init(){
 
 function threeVisualization ( dataset) {
 	var group = new THREE.Group();
-	for ( var i = 0; i < dataset.length; i++) {
-		var size = (dataset[i].intensity/95)
-		var geometry = new THREE.DodecahedronGeometry( size, 0);
-		var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: false, transparent: true, opacity: 0.5} );
-		var mesh = new THREE.Mesh( geometry, material );
-		mesh.position.x = Math.random() * 10 - 5;
-		mesh.position.y = Math.random() * 10 - 5;
-		mesh.position.z = Math.random() * 10 - 5;
+	var datasetLength = dataset.length;
+	if (datasetLength < 51) {
+		for ( var i = datasetLength-1; i > -1; i--) {
+			var size = (dataset[i].intensity/95)
+			var geometry = new THREE.DodecahedronGeometry( size, 0);
+			var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: false, transparent: true, opacity: 0.5} );
+			var mesh = new THREE.Mesh( geometry, material );
+			mesh.position.x = Math.random() * 10 - 5;
+			mesh.position.y = Math.random() * 10 - 5;
+			mesh.position.z = Math.random() * 10 - 5;
 
-		mesh.rotation.x = Math.random() * 2 * Math.PI;
-		mesh.rotation.y = Math.random() * 2 * Math.PI;
+			mesh.rotation.x = Math.random() * 2 * Math.PI;
+			mesh.rotation.y = Math.random() * 2 * Math.PI;
 
-		mesh.matrixAutoUpdate = false;
-		mesh.updateMatrix();
+			mesh.matrixAutoUpdate = false;
+			mesh.updateMatrix();
 
-		group.add( mesh );
+			group.add( mesh );
+		}
+	}
+	else {
+		for ( var i = datasetLength-1; i > datasetLength - 51; i--) {
+			var size = (dataset[i].intensity/95)
+			var geometry = new THREE.DodecahedronGeometry( size, 0);
+			var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: false, transparent: true, opacity: 0.5} );
+			var mesh = new THREE.Mesh( geometry, material );
+			mesh.position.x = Math.random() * 10 - 5;
+			mesh.position.y = Math.random() * 10 - 5;
+			mesh.position.z = Math.random() * 10 - 5;
+
+			mesh.rotation.x = Math.random() * 2 * Math.PI;
+			mesh.rotation.y = Math.random() * 2 * Math.PI;
+
+			mesh.matrixAutoUpdate = false;
+			mesh.updateMatrix();
+
+			group.add( mesh );
+		}
 	}
 
 	scene.add( group );
