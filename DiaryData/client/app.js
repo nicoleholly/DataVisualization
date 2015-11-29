@@ -8,21 +8,36 @@ Template.form.events({
 		var intensity = $('#intensity').val();
 		var notes = $('.notes').val();
 
-		Transactions.insert({
-			userID: Meteor.userId(),
-			emotion: emotion,
-			intensity: intensity,
-			notes: notes,
-			createdAt: new Date()
-		})
+		if(Meteor.userId() == null) {
+			document.getElementById('warning').classList.remove("hidden");
+		}
+
+		if(Meteor.userId() != null ){
+			if(!document.getElementById('warning').classList.contains('hidden')) {
+				document.getElementById('warning').classList.add('hidden');
+			}
+			Transactions.insert({
+				userID: Meteor.userId(),
+				emotion: emotion,
+				intensity: intensity,
+				notes: notes,
+				createdAt: new Date()
+			})
+		}
 	}
 });
 
 Template.visualization.onRendered(function(){
 	this.autorun(function() {
-		var dataset = Template.currentData();
-		D3(dataset);
-	})
+		if(Meteor.userId() != null ){
+			console.log(document.getElementById('warning').classList);
+			if(!document.getElementById('warning').classList.contains('hidden')) {
+				document.getElementById('warning').classList.add('hidden');
+			}
+		}
+			var dataset = Template.currentData();
+			D3(dataset);
+		})
 })
 
 Template.canvas.onRendered(function(){
@@ -253,6 +268,6 @@ function switchEmotionColor(switchEmotion) {
 }
 
 Accounts.ui.config({
-		passwordSignupFields: "USERNAME_ONLY"
-	});
+	passwordSignupFields: "USERNAME_ONLY"
+});
 

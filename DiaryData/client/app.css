@@ -8,6 +8,17 @@ circle:hover{
   opacity:.5;
 
 }
+
+#warning {
+  color: white;
+  font-family: sans-serif;
+  padding: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
 *{
 	padding:0;
 	margin:0;
