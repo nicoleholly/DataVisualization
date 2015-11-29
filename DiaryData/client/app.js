@@ -13,9 +13,6 @@ Template.form.events({
 		}
 
 		if(Meteor.userId() != null ){
-			if(!document.getElementById('warning').classList.contains('hidden')) {
-				document.getElementById('warning').classList.add('hidden');
-			}
 			Transactions.insert({
 				userID: Meteor.userId(),
 				emotion: emotion,
