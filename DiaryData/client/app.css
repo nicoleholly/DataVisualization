@@ -4,7 +4,10 @@ svg{
   radial-gradient(90% 90% ellipse at  right, #261226 0%, #100a1c 100%);
 }
 
+circle:hover{
+  opacity:.5;
 
+}
 *{
 	padding:0;
 	margin:0;

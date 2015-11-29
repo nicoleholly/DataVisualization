@@ -154,6 +154,7 @@ function D3(dataset){
 };
 
 function D3visualization ( dataset ) {
+	
 	var xScale = d3.scale.linear()
 	.domain([0, d3.max(dataset, function(d) { return d.createdAt.getSeconds(); })])
 	.range([0, 1000]);
@@ -172,6 +173,16 @@ function D3visualization ( dataset ) {
 	.data(dataset)
 	.enter()
 	.append("circle")
+	.on("mouseover", function(){
+
+		
+		return circleText.style("visibility", "visible");
+	})
+	
+	.on("mouseout", function(){
+		return circleText.style("visibility", "hidden");
+	})
+
 
 	.attr("cx", function(d) {
 		
@@ -188,14 +199,18 @@ function D3visualization ( dataset ) {
 	.style("fill", function(d){
 		return switchEmotionColor(d.emotion);
 	});
-	svg.selectAll("text")
+	var circleText = svg.selectAll("text")
 	.data(dataset)
 	.enter()
 	.append("text")
 	.text(function(d) {
 		console.log(d.notes);
-		return d.notes;
+		return d.notes + ' ' + d.createdAt;
 	})
+	.style("visibility", "hidden")
+	.attr('class','text')
+
+
 	.attr("x", function(d) {
 		return xScale(d.createdAt.getSeconds());
 	})
@@ -204,7 +219,7 @@ function D3visualization ( dataset ) {
 	})
 	.attr("font-family", "sans-serif")
 	.attr("font-size", "11px")
-	.attr("fill", "#c97874");
+	.attr("fill", "#6cacc5");
 }
 
 
