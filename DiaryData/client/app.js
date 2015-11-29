@@ -117,7 +117,7 @@ function threeVisualization ( dataset) {
 
 	scene.add( group );
 
-	var cubeMaterial = new THREE.MeshBasicMaterial( { color: 'blue', wireframe: true, transparent: true, opacity: 0.8} );
+	var cubeMaterial = new THREE.MeshBasicMaterial( { color: '#6cacc5', wireframe: true, transparent: true, opacity: 0.8} );
 	var cubeGeometry = new THREE.DodecahedronGeometry( 1,0);
 	cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 	scene.add( cube );
