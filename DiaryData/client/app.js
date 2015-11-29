@@ -22,8 +22,6 @@ Template.form.events({
 		}
 
 		$('.notes').val("");
-
-		
 	}
 });
 
@@ -104,45 +102,30 @@ function init(){
 }
 
 function threeVisualization ( dataset) {
+	var end = -1;
 	var group = new THREE.Group();
 	var datasetLength = dataset.length;
-	if (datasetLength < 51) {
-		for ( var i = datasetLength-1; i > -1; i--) {
-			var size = (dataset[i].intensity/95)
-			var geometry = new THREE.DodecahedronGeometry( size, 0);
-			var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: false, transparent: true, opacity: 0.5} );
-			var mesh = new THREE.Mesh( geometry, material );
-			mesh.position.x = Math.random() * 10 - 5;
-			mesh.position.y = Math.random() * 10 - 5;
-			mesh.position.z = Math.random() * 10 - 5;
 
-			mesh.rotation.x = Math.random() * 2 * Math.PI;
-			mesh.rotation.y = Math.random() * 2 * Math.PI;
-
-			mesh.matrixAutoUpdate = false;
-			mesh.updateMatrix();
-
-			group.add( mesh );
-		}
+	if (datasetLength > 50) {
+		end = datasetLength - 50;
 	}
-	else {
-		for ( var i = datasetLength-1; i > datasetLength - 51; i--) {
-			var size = (dataset[i].intensity/95)
-			var geometry = new THREE.DodecahedronGeometry( size, 0);
-			var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: false, transparent: true, opacity: 0.5} );
-			var mesh = new THREE.Mesh( geometry, material );
-			mesh.position.x = Math.random() * 10 - 5;
-			mesh.position.y = Math.random() * 10 - 5;
-			mesh.position.z = Math.random() * 10 - 5;
 
-			mesh.rotation.x = Math.random() * 2 * Math.PI;
-			mesh.rotation.y = Math.random() * 2 * Math.PI;
+	for ( var i = datasetLength-1; i > end; i--) {
+		var size = (dataset[i].intensity/95)
+		var geometry = new THREE.DodecahedronGeometry( size, 0);
+		var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: false, transparent: true, opacity: 0.5} );
+		var mesh = new THREE.Mesh( geometry, material );
+		mesh.position.x = Math.random() * 10 - 5;
+		mesh.position.y = Math.random() * 10 - 5;
+		mesh.position.z = Math.random() * 10 - 5;
 
-			mesh.matrixAutoUpdate = false;
-			mesh.updateMatrix();
+		mesh.rotation.x = Math.random() * 2 * Math.PI;
+		mesh.rotation.y = Math.random() * 2 * Math.PI;
 
-			group.add( mesh );
-		}
+		mesh.matrixAutoUpdate = false;
+		mesh.updateMatrix();
+
+		group.add( mesh );
 	}
 
 	scene.add( group );
