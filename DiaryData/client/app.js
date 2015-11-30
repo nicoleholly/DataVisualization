@@ -27,6 +27,33 @@ Template.form.events({
 	}
 });
 
+Template.emotionSlider.events({
+	$("#threeSlider").mousedown(function () {
+		$(this).mousemove(function () {
+			console.log("OK Moved!");
+		});
+	})
+/*	.mouseup(function () {
+		$(this).unbind('mousemove');
+	}).mouseout(function () {
+		$(this).unbind('mousemove');
+	});
+
+
+/*
+	"mousedown  #threeSlider" : function(e) {
+		e.preventDefault();
+
+		"mousemove" : function (e) {
+			console.log('this happened');
+			var emotionVal = $('#emotionRange').val();
+			console.log(emotionVal);
+		//	var dataset = Template.currentData();
+	}
+
+	//	three ( dataset , emotionVal); */
+})
+
 Template.visualization.onRendered(function(){
 	this.autorun(function() {
 		if(Meteor.userId() && !document.getElementById('warning').classList.contains('hidden')) {
@@ -34,6 +61,7 @@ Template.visualization.onRendered(function(){
 		}
 		var dataset = Template.currentData();
 		D3(dataset);
+
 	})
 })
 
@@ -45,7 +73,10 @@ Template.canvas.onRendered(function(){
 });
 
 
-function three(dataset){
+function three(dataset, sliderVal){
+	if (sliderVal){
+		console.log( sliderVal );
+	}
 	var container, stats;
 	var geometry, group;
 	var mouseX = 0, mouseY = 0;
@@ -190,10 +221,10 @@ function D3visualization ( dataset ) {
 	.enter()
 	.append("circle")
 	.on("mouseover", function(){
-		console.log(circleText);
-		
-		return circleText.style("visibility", "visible");
-	})
+	//	console.log(circleText);
+
+	return circleText.style("visibility", "visible");
+})
 	
 	.on("mouseout", function(){
 		return circleText.style("visibility", "hidden");
@@ -205,10 +236,10 @@ function D3visualization ( dataset ) {
 		return xScale(d.createdAt.getSeconds()); 
 	})
 	.attr("cy", function(d) {
-		console.log(d.createdAt.getMilliseconds());
-		console.log(xScale(d.createdAt.getMilliseconds()));
-		return yScale(d.createdAt.getMilliseconds()); 
-	})
+	//	console.log(d.createdAt.getMilliseconds());
+	//	console.log(xScale(d.createdAt.getMilliseconds()));
+	return yScale(d.createdAt.getMilliseconds()); 
+})
 	.attr("r", function(d){
 		return d.intensity/2;
 	})
@@ -220,9 +251,9 @@ function D3visualization ( dataset ) {
 	.enter()
 	.append("text")
 	.text(function(d) {
-		console.log(d.notes);
-		return d.notes;
-	})
+	//	console.log(d.notes);
+	return d.notes;
+})
 	.style("visibility", "hidden")
 	.attr('class','text')
 
