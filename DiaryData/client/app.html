@@ -14,19 +14,18 @@
 	<section class = "3d">{{>canvas}}</section>
 </template>
 
-<template name="login">{{>loginButtons}} </template>
+<template name="login">
+	{{>loginButtons}} 
+</template>
 
 <template name="form">
-
 	<form id = "transaction">
-
 		<h1><label for ="emotion">How are you feeling today?</label></h1> <br />
 		{{>emotionPicker}}
 
 		<button id="submit">submit</button>
 		<div id= "warning" class = "hidden"> You need to be signed in to submit! </div> 
 	</form>
-
 </template>
 
 <template name ="emotionPicker">
@@ -53,21 +52,24 @@
 	</section>
 </template>
 
-
-
 <template name ="visualization">
 	{{#if currentUser}}
 	<div id ="viz">
-
 	</div>
 	{{/if}}
 </template>
 
 <template name="canvas">
 	{{#if currentUser}}
-
-	<div id="canvas">
-	</div>
+		{{>emotionSlider}}
+		<div id="canvas"></div>
 	{{/if}}
 
+</template>
+
+<template name="emotionSlider">
+	<section id = "threeSlider">
+		<label for="emotionRange">Emotion Range: {{sliderVal}} </label>
+		<input class="range blue" id="emotionRange" name="emotionRange" type="range" min=1 max=100 value=0>
+	</section>
 </template>
