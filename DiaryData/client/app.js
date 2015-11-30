@@ -1,6 +1,8 @@
 THREEinitialized = false;
 D3initialized = false;
 
+
+
 Template.form.events({
 	"submit form" : function(e) {
 		e.preventDefault();
@@ -111,7 +113,7 @@ function threeVisualization ( dataset) {
 	}
 
 	for ( var i = datasetLength-1; i > end; i--) {
-		var size = (dataset[i].intensity/95)
+		var size = (dataset[i].intensity/95);
 		var geometry = new THREE.DodecahedronGeometry( size, 0);
 		var material = new THREE.MeshBasicMaterial( { color: switchEmotionColor(dataset[i].emotion), wireframe: false, transparent: true, opacity: 0.5} );
 		var mesh = new THREE.Mesh( geometry, material );
