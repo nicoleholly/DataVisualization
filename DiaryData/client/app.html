@@ -6,17 +6,13 @@
 <template name = "home">
 	<main class = 'main'>
 		<h1> Emotion Visualization </h1>
-		<p>Sign in to add emotions and see your visualization!</p>
-		<section class = "login">{{>login}}</section>
 		<section class = "form">{{>form}}</section>
 		<section class = "visual">{{>visualization}}</section>
 	</main>
 	<section class = "3d">{{>canvas}}</section>
 </template>
 
-<template name="login">
-	{{>loginButtons}} 
-</template>
+
 
 <template name="form">
 	<form id = "transaction">
@@ -29,6 +25,7 @@
 </template>
 
 <template name ="emotionPicker">
+	<input class = "username" type ="text" placeholder = "Name (optional)">
 	<section id = "dropdown">	
 		<select class="dropdown-select" id="emotion">
 			<option value="happy">Happy</option>
@@ -53,23 +50,15 @@
 </template>
 
 <template name ="visualization">
-	{{#if currentUser}}
+
 	<div id ="viz">
 	</div>
-	{{/if}}
 </template>
 
 <template name="canvas">
-	{{#if currentUser}}
-		{{>emotionSlider}}
-		<div id="canvas"></div>
-	{{/if}}
+	
+	<div id="canvas"></div>
 
 </template>
 
-<template name="emotionSlider">
-	<section id = "threeSlider">
-		<label for="emotionRange">Emotion Range: {{sliderVal}} </label>
-		<input class="range blue" id="emotionRange" name="emotionRange" type="range" min=1 max=100 value=0>
-	</section>
-</template>
+

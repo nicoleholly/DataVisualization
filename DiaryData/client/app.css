@@ -44,15 +44,7 @@ h1,p,label{
 h1{
  margin:15px;
 }
-.login-link-text{
-	color:#c97874;
-  margin-top:35px;
-  padding:10px;
-  background-color: rgba(42,50,113, .28);
-}
-.login-link-text:hover{
-  background: #201e40;
-}
+
 p{
   margin-bottom:15px;
   color:#c97874;
@@ -115,6 +107,16 @@ input[type=range]::-webkit-slider-thumb {
   width: 100px;
   height: 40px;
   transition: all 0.5s;
+}
+.username{
+  margin:10px;  
+  font-size: 16px;
+  border: 0;
+  background: rgba(42,50,113, .28);
+  color: #6cacc5;
+  width:200px;
+  outline:none;
+  height:40px;
 }
 #submit:hover{
   background: #201e40;

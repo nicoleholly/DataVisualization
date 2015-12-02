@@ -10,29 +10,19 @@ Template.form.events({
 		var intensity = $('#intensity').val();
 		var notes = $('.notes').val();
 
-		if(Meteor.userId()){
+		
 			Transactions.insert({
-				userID: Meteor.userId(),
+
 				emotion: emotion,
 				intensity: intensity,
 				notes: notes,
 				createdAt: new Date()
 			})
 		}
-		else {
-			document.getElementById('warning').classList.remove("hidden");
-		}
+		
+	});
 
-		$('.notes').val("");
-	}
-});
 
-Template.emotionSlider.events({
-	$("#threeSlider").mousedown(function () {
-		$(this).mousemove(function () {
-			console.log("OK Moved!");
-		});
-	})
 /*	.mouseup(function () {
 		$(this).unbind('mousemove');
 	}).mouseout(function () {
@@ -51,14 +41,11 @@ Template.emotionSlider.events({
 		//	var dataset = Template.currentData();
 	}
 
-	//	three ( dataset , emotionVal); */
+	//	three ( dataset , emotionVal); 
 })
-
+*/
 Template.visualization.onRendered(function(){
 	this.autorun(function() {
-		if(Meteor.userId() && !document.getElementById('warning').classList.contains('hidden')) {
-			document.getElementById('warning').classList.add('hidden');
-		}
 		var dataset = Template.currentData();
 		D3(dataset);
 
@@ -302,7 +289,4 @@ function switchEmotionColor(switchEmotion) {
 	}
 }
 
-Accounts.ui.config({
-	passwordSignupFields: "USERNAME_ONLY"
-});
 

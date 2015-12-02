@@ -6,7 +6,7 @@ Router.route('/', {
 		return Meteor.subscribe('transactions');
 	},
 	data: function(){
-		return Transactions.find({userID:Meteor.userId()}).fetch();
+		return Transactions.find().fetch();
 	},
 });
 
