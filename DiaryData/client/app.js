@@ -217,7 +217,6 @@ function D3visualization ( dataset ) {
 		return circleText.style("visibility", "hidden");
 	})
 
-
 	.attr("cx", function(d) {
 		
 		return xScale(d.createdAt.getSeconds()); 

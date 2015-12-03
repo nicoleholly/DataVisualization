@@ -3,25 +3,39 @@
 
 </head>
 
+<template name ="applicationLayout">
+	{{>nav}}
+	{{>yield}}
+</template>
+
 <template name = "home">
-	<main class = 'main'>
-		<h1> Emotion Visualization </h1>
-		<section class = "form">{{>form}}</section>
-		<section class = "visual">{{>visualization}}</section>
-	</main>
-	<section class = "3d">{{>canvas}}</section>
+	
 </template>
 
 
 
-<template name="form">
-	<form id = "transaction">
-		<h1><label for ="emotion">How are you feeling today?</label></h1> <br />
-		{{>emotionPicker}}
+<template name = "nav">
+	<ul class = "nav">
+		<li><a href="{{pathFor route='home'}}">HOME</a></li> 
+		<li><a href="{{pathFor route='visualization'}}">CIRCLES</a></li> 	
+		<li><a href="{{pathFor route='canvas'}}">DODECAHEDRONS</a></li>
+	</ul>
 
-		<button id="submit">submit</button>
-		<div id= "warning" class = "hidden"> You need to be signed in to submit! </div> 
-	</form>
+</template>
+
+
+<template name="form">
+	<main class = 'main'>
+		<section class = "form">
+
+			<form id = "transaction">
+				<h1><label for ="emotion">How are you feeling today?</label></h1> <br />
+				{{>emotionPicker}}
+
+				<button id="submit">submit</button>
+			</form>
+		</section>
+	</main>
 </template>
 
 <template name ="emotionPicker">
@@ -50,13 +64,14 @@
 </template>
 
 <template name ="visualization">
-
+	{{>form}}
 	<div id ="viz">
 	</div>
 </template>
 
 <template name="canvas">
-	
+	{{>form}}
+
 	<div id="canvas"></div>
 
 </template>

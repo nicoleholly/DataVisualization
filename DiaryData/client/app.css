@@ -9,16 +9,6 @@ circle:hover{
 
 }
 
-#warning {
-  color: white;
-  font-family: sans-serif;
-  padding: 10px;
-}
-
-.hidden {
-  display: none;
-}
-
 *{
 	padding:0;
 	margin:0;
@@ -41,14 +31,26 @@ h1,p,label{
 	font-family:sans-serif;
 
 }
+li{
+  display:inline;
+  padding:20px;
+}
+ul{
+  margin-top:40px;
+  text-align: center;
+}
+a{
+  font-family:sans-serif;
+  text-decoration: none;
+  color:#c97874
+}
+a:hover{
+  color:#6cacc5;
+}
 h1{
  margin:15px;
 }
 
-p{
-  margin-bottom:15px;
-  color:#c97874;
-}
 .login,.form,.visual{
 	margin:0 auto;
 	width:100%;
@@ -122,7 +124,6 @@ input[type=range]::-webkit-slider-thumb {
   background: #201e40;
 }
 .notes{
-
   padding:5px;
   color:#c97874;
   width: 395px;
