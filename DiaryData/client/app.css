@@ -25,7 +25,7 @@ circle:hover{
 
 h1,p,label{
 	text-align:center;
-	color: #6cacc5;
+	color: rgba(126,132,251,1);
 	font-family:sans-serif;
 
 }
@@ -41,10 +41,10 @@ a{
   letter-spacing: 2.5px;
   font-family:sans-serif;
   text-decoration: none;
-  color:#c97874
+  color:#f689b2;
 }
 a:hover{
-  color:#6cacc5;
+  color:#eee1fb;
 }
 h1{
  margin:15px;
@@ -74,8 +74,7 @@ body{
 
 input[type=range]::-webkit-slider-runnable-track {
   -webkit-appearance: none;
-  background: rgba(59,173,227,1);
-  /**background: linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);**/
+  background: #78fafe;
   height: 2px;
 }
 
@@ -99,9 +98,9 @@ input[type=range]::-webkit-slider-thumb {
 
 #submit, .dropdown-select{
   font-size: 16px;
-  border: 0;
-  background: rgba(42,50,113, .28);
-  color: #6cacc5;
+  border: 1px solid rgba(126,132,251,.5);
+  background: transparent ;
+  color: rgba(126,132,251,1);
   cursor: pointer;
   outline:none;
   margin: 0.25em;
@@ -110,46 +109,39 @@ input[type=range]::-webkit-slider-thumb {
   transition: all 0.5s;
 }
 .username{
+  padding-left:10px;
   margin:10px;  
   font-size: 16px;
-  border: 0;
-  background: rgba(42,50,113, .28);
-  color: #6cacc5;
+  border: 1px solid rgba(126,132,251,.5);
+  background:transparent;
+  color: rgba(126,132,251,1);
   width:200px;
   outline:none;
   height:40px;
 }
+
 #submit:hover{
-  background: #201e40;
+  border: 1px solid rgba(126,132,251,.8);
+}
+#submit:active{
+  border: 1px solid rgba(126,132,251,.8);
+  color:black;
 }
 .notes{
-  padding:5px;
-  color:#c97874;
+  border: 1px solid rgba(126,132,251,.5);
+  padding:10px;
+  color: rgba(126,132,251,1);
   width: 395px;
   height: 100px;
   font-weight:400;
   font-size:18px;
   font-family: Helvetica, Arial, sans-serif;
-  background:#201e40;
+  background:transparent;
   line-height:1em;
-  border:none;
-  box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);
   outline:none;
 }
-::-webkit-input-placeholder {
-  color:#6cacc5;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-  color:#6cacc5;
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-  color:#6cacc5;
-}
-
-:-ms-input-placeholder {  
-  color:#6cacc5;
+.notes:focus, .username:focus{
+  border: 1px solid rgba(126,132,251,.8);
 }
 #dropdown,#notes,#range{
   display:block;
