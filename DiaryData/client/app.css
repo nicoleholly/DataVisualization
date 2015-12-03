@@ -1,7 +1,5 @@
 svg{
-  background-image:
-  radial-gradient(90% 90% ellipse at left, #201e40 0%, rgba(0,0,0,0) 100%),
-  radial-gradient(90% 90% ellipse at  right, #261226 0%, #100a1c 100%);
+  background:transparent;
 }
 
 circle:hover{
