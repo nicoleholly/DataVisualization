@@ -2,4 +2,6 @@ Emotion visualization diary using d3.js and three.js.
 
 Inspired by this project : http://design-milk.com/color-coded-diaries-emotions-300-days/
 
-To run locally in terminal after clone: meteor
+To run locally in terminal after clone: 
+cd DiaryData
+meteor
